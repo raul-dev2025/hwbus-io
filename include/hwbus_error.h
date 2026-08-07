@@ -1,5 +1,13 @@
+#ifndef HWBUS_ERROR_H
+#define HWBUS_ERROR_H
+
+#ifdef __KERNEL__
+#include <linux/errno.h>
+#include <linux/types.h>
+#else
 #include <errno.h>
 #include <stddef.h>
+#endif
 
 #define HWBUS_SUCCESS 0
 #define HWBUS_ERR_BASE 5000
@@ -7,14 +15,16 @@
 #define HWBUS_ERR_INVALID_BDF (HWBUS_ERR_BASE + 2)
 #define HWBUS_ERR_NOT_SUPPORTED (HWBUS_ERR_BASE + 3)
 
-/* Translating function */
-const char *hwbus_strerror(int errnum);
+#ifndef __KERNEL__
 
-/*
-  Siguiente punto de discusión en la arquitectura
-  - Por qué aparecen estas advertencias en hello.c ?
-  - No hemos determinado si vamos a enfocar el desarrollo como una aplicaciónde usuario o como módulo del kernel. Esperaba, adoptar un enfoque de driver...
+/**
+ * @brief Traduce códigos de error POSIX y de dominio HWBUS a una cadena legible.
+ *        Solo disponible para utilidades y tests en Espacio de Usuario.
+ *
+ * @param errnum Código de error (entero positivo o negativo)
+ * @return const char* Cadena estática con la descripción del error
+ */
+const char* hwbus_strerror(int errnum);
+#endif
 
-
-
-*/
+#endif /* HWBUS_ERROR_H */
