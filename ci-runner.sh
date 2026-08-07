@@ -7,7 +7,7 @@ set -e
 
 # Configuración de entornos y rutas
 REMOTE_HOST="builder@buildlab"
-REMOTE_ROOT="/mnt/build-output/Repos/hwbus-io"
+REMOTE_ROOT="/mnt/build-output/Repos/hwbus-io.git"
 MODULE_SUBDIR="tests"                             # Módulo a probar
 REMOTE_SRC_DIR="${REMOTE_ROOT}/${MODULE_SUBDIR}"  # Directorio del Makefile modular
 REMOTE_TARGET="hello"                          # Binario específico de LTP

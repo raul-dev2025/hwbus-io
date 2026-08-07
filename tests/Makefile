@@ -1,21 +1,17 @@
-LTP_SRC ?= /home/builder/Repos/ltp
+# tests/Makefile para módulos de Kernel
+obj-m += hello.o
 
-CFLAGS += -Wall -I../include -I$(LTP_SRC)/include -I$(LTP_SRC)/include/old
-LDFLAGS += -L$(LTP_SRC)/lib
-LDLIBS += -lltp
-
-# Objetivos a generar
-TARGETS := hello
+KDIR ?= /lib/modules/$(shell uname -r)/build
+PWD := $(shell pwd)
 
 .PHONY: all clean
 
-all: $(TARGETS)
+all:
+	$(MAKE) -C $(KDIR) M=$(PWD) modules
 
-hello: hello.c
-	$(CC) $(CFLAGS) $< $(LDFLAGS) $(LDLIBS) -o $@
 
 
 
 
 clean:
-	rm -f $(TARGETS) *.o
+	$(MAKE) -C $(KDIR) M=$(PWD) clean
