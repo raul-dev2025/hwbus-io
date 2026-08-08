@@ -8,13 +8,13 @@ set -e
 # Configuración de entornos y rutas
 REMOTE_HOST="builder@buildlab"
 REMOTE_ROOT="/mnt/build-output/Repos/hwbus-io.git"
-MODULE_SUBDIR="tests"                             # Módulo a probar
-REMOTE_SRC_DIR="${REMOTE_ROOT}/${MODULE_SUBDIR}"  # Directorio del Makefile modular
+MODULE_SUBDIR="tests"                                   # Módulo a probar
+REMOTE_SRC_DIR="${REMOTE_ROOT}/${MODULE_SUBDIR}"        # Directorio del Makefile modular
 
 # === MÓDULO ÚNICO A COMPILAR Y PROBAR ===
 TARGET_MODULE="hello"
 REMOTE_KO="${REMOTE_SRC_DIR}/${TARGET_MODULE}.ko"
-TEST_RUNNER="${REMOTE_ROOT}/Scripts/test-runner.sh"              # === Ruta al runner de prueba
+TEST_RUNNER="${REMOTE_ROOT}/Scripts/test-runner.sh"     # === Ruta al runner de prueba
 
 # Rutas de logs (WS y Lab)
 LOCAL_LOG_DIR="/mnt/datos_raul/Logs/Buildlab/hwbus-io"

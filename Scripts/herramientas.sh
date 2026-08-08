@@ -10,4 +10,3 @@ sudo kmod-sign-file sha256 /etc/secureboot/buildlab.priv /etc/secureboot/buildla
 # Probar la carga
 sudo insmod hello.ko
 dmesg | tail -n 5
-
