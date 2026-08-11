@@ -57,7 +57,7 @@ echo "🔏 Generando manifiesto y firma..."
 echo "=============================================="
 
 # 4. Transición a la fase de firma/manifiesto
-if ssh "${REMOTE_HOST}" "${REMOTE_ROOT}/ci-signer.sh ${BUILD_TYPE}"; then
+if ssh "${REMOTE_HOST}" "${REMOTE_ROOT}/Scripts/ci-signer.sh ${BUILD_TYPE}"; then
     echo "✅ MANIFIESTO Y ESTADO REGISTRADOS CORRECTAMENTE"
 else
     echo "❌ ERROR EN FASE DE FIRMA / MANIFIESTO"
