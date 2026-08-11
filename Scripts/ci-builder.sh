@@ -9,7 +9,7 @@ REMOTE_HOST="builder@buildlab"
 REMOTE_ROOT="/mnt/build-output/Repos/hwbus-io.git"
 
 # Opciones: "KO" | "LTP"
-BUILD_TYPE="KO"                  
+BUILD_TYPE="LTP"
 
 # Rutas de logs (WS y Lab)
 LOCAL_LOG_DIR="/mnt/datos_raul/Logs/Buildlab/hwbus-io"
