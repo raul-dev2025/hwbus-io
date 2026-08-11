@@ -1,22 +1,11 @@
-# tests/Makefile
-KDIR ?= /lib/modules/$(shell uname -r)/build
-PWD  := $(shell pwd)
+.PHONY: test clean
 
-# Si se pasa un módulo específico (ej. MODULE=hello.ko), se compila solo ese.
-# Si no se especifica ninguno, por defecto es hello.ko.
-MODULE ?= hello.ko
-obj-m := $(MODULE:.ko=.o)
+# Subdirectorio activo configurado en el propio Makefile
+SUBDIR ?= IO_tests
+TARGET ?= mmap01
 
-.PHONY: all clean
-
-all:
-	$(MAKE) -C $(KDIR) M=$(PWD) modules
-
-
-
-
-
-
+test:
+	$(MAKE) -C $(SUBDIR) $(TARGET)
 
 clean:
-	$(MAKE) -C $(KDIR) M=$(PWD) clean
+	$(MAKE) -C IO_tests clean

@@ -1,0 +1,1 @@
+obj-m += sysfs_driver.o

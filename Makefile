@@ -1,18 +1,21 @@
-.PHONY: all tests clean
+.PHONY: module test clean
 
-# Directorios de trabajo
-PWD := $(shell pwd)
+PWD  := $(shell pwd)
 KDIR ?= /lib/modules/$(shell uname -r)/build
 
-# Regla principal (compilación de módulos/fuentes del proyecto)
-all:
-	$(MAKE) -C $(KDIR) M=$(PWD) modules
+# Subdirectorio de módulo activo (configurado en el propio Makefile)
+MODULE_DIR ?= src/core
 
-# Delegación de pruebas al Makefile del subdirectorio tests/
-tests:
-	$(MAKE) -C tests
+# Compilación explícita del módulo
+module:
+	$(MAKE) -C $(KDIR) M=$(PWD)/$(MODULE_DIR) modules
 
-# Limpieza general
+# Compilación explícita de pruebas delegando en la jerarquía tests/
+test:
+	$(MAKE) -C tests test
+
+# Limpieza global sin fallar si un directorio no existe o está limpio
 clean:
-	$(MAKE) -C $(KDIR) M=$(PWD) clean
-	$(MAKE) -C tests clean
+	$(MAKE) -C $(KDIR) M=$(PWD)/src/core clean 2>/dev/null || true
+	$(MAKE) -C $(KDIR) M=$(PWD)/src/driver clean 2>/dev/null || true
+	$(MAKE) -C tests clean 2>/dev/null || true
