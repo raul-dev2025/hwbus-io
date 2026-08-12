@@ -13,7 +13,11 @@ iv_user() {
 }
 
 
-
+# 1. Comprobar exclusión previa: acme-sandbox NO debe estar encendida
+if iv_user virsh list --name | grep -q "^acme-sandbox$"; then
+    echo "❌ Error de exclusión: acme-sandbox ya está en ejecución de forma anómala."
+    exit 1
+fi
 
 
 if iv_user virsh list --name | grep -q "^buildlab$"; then
