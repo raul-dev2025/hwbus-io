@@ -5,6 +5,7 @@
 
 set -e
 
+SANDBOX_HOST="builder@acme-sandbox"
 MANIFEST_FILE="${1:-/mnt/build-output/Repos/hwbus-io.git/build_state.env}"
 REMOTE_LOG_DIR="/var/log/Sandbox/hwbus-io"
 RUN_LOG="${REMOTE_LOG_DIR}/acme_latest.log"
