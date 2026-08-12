@@ -13,21 +13,27 @@ iv_user() {
 }
 
 
-VM_RUNNING=${virsh list --name}
 
-sudo -u virt-admin /usr/bin/bash
-echo "==============================="
-echo "🚀 Comprobando actividad vm ..."
-echo "==============================="
-virsh list --all --title
-# aqui podríamos pedir pulsar la barra espaciadora para continuar
 
-if [ ${VM_RUNNING} = "buildlab" ]; then
+
+if iv_user virsh list --name | grep -q "^buildlab$"; then
     echo "=============================="
-    echo "🛑 Cerrando el laboratorio ..."
+    echo "🛑 Cerrando la VM buildlab ..."
     echo "=============================="
-    virsh shutdown buildlab
-    sleep 15  
+    iv_user virsh shutdown buildlab
+
+    # Espera activa a que se apague
+    while iv_user virsh list --name | grep -q "^buildlab$"; do
+        sleep 1
+    done
+    echo "✅ VM buildlab apagada con éxito."
+fi
+
+
+
+
+
+  
 elif [ ${VM_RUNNING} = "acme-sandbox" ]; then
     echo "====================================="
     echo "🧪 Vm ${VM_RUNNING} en funcionamiento"
