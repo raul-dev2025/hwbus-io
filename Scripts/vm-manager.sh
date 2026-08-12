@@ -12,14 +12,13 @@ iv_user() {
   sudo -u virt-admin "$@"
 }
 
-
 # 1. Comprobar exclusión previa: acme-sandbox NO debe estar encendida
 if iv_user virsh list --name | grep -q "^acme-sandbox$"; then
     echo "❌ Error de exclusión: acme-sandbox ya está en ejecución de forma anómala."
     exit 1
 fi
 
-
+# 2. Apagado de buildlab si está activa
 if iv_user virsh list --name | grep -q "^buildlab$"; then
     echo "=============================="
     echo "🛑 Cerrando la VM buildlab ..."
@@ -33,21 +32,4 @@ if iv_user virsh list --name | grep -q "^buildlab$"; then
     echo "✅ VM buildlab apagada con éxito."
 fi
 
-
-
-
-
-  
-elif [ ${VM_RUNNING} = "acme-sandbox" ]; then
-    echo "====================================="
-    echo "🧪 Vm ${VM_RUNNING} en funcionamiento"
-    echo "====================================="
-else
-    echo "❌ Error: No hay ninguna vm activa"
-    echo "${VM_RUNNING}"
-    exit 1
-fi
-
-# Hay que comprobar que no haya ninguna vm en marcha antes 
-# de encender el sandbox
-virsh start acme-sandbox
+# 3. Encendido de acme-sandbox tras confirmar el apagado de buildlab
