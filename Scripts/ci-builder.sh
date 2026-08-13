@@ -31,6 +31,12 @@ echo "=================================================="
 START_OUTPUT=$(Scripts/Envs/./vm-start.sh buildlab)
 echo "${START_OUTPUT}"
 
+# Verificar que la VM ha alcanzado el estado activo
+if ! echo "${START_OUTPUT}" | grep -q -E "(arrancada con éxito|se encuentra activa)"; then
+    echo "❌ Error: La infraestructura no pudo iniciar buildlab."
+    exit 1
+fi
+
 echo "✅ Entorno buildlab activo y respondiendo por SSH."
 
 
