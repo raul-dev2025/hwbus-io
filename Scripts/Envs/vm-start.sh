@@ -22,11 +22,16 @@ fi
 ACTIVE_VMS=$(iv_virsh list --name | grep -v '^$' || true)
 
 if [ -n "${ACTIVE_VMS}" ]; then
+  # Si el laboratorio ya está en marcha
+  if [ "${ACTIVE_VMS}" = "${VM_TARGET}" ]; then
+    [ "${DEBUG}" -eq 1 ] && echo "[DEBUG] La VM [${VM_TARGET}] ya se encuentra activa. Continuando..."
+  else
     if [ "${DEBUG}" -eq 1 ]; then
         echo "[DEBUG] Conflicto de exclusión mutua. VMs activas detectadas:"
         iv_virsh list --all --title
     fi
     exit 1
+  fi
 fi
 
 # 2. Arrancar la máquina virtual solicitada
