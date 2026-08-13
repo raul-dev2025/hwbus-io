@@ -12,4 +12,24 @@ iv_virsh() {
     sudo -u virt-admin virsh --connect qemu:///system "$@"
 }
 
+# Validador técnico de parámetro para el orquestador
+if [ -z "${VM_TARGET}" ]; then
+    [ "${DEBUG}" -eq 1 ] && echo "[DEBUG] Error interno: Asignación de VM_TARGET vacía en la llamada."
+    exit 1
+fi
+
+# 1. Comprobar si hay alguna VM en ejecución
+ACTIVE_VMS=$(iv_virsh list --name | grep -v '^$' || true)
+
+if [ -n "${ACTIVE_VMS}" ]; then
+    if [ "${DEBUG}" -eq 1 ]; then
+        echo "[DEBUG] Conflicto de exclusión mutua. VMs activas detectadas:"
+        iv_virsh list --all --title
+    fi
+    exit 1
+fi
+
+
+iv_virsh start "${VM_TARGET}"
+
 [ "${DEBUG}" -eq 1 ] && echo "[DEBUG] VM [${VM_TARGET}] arrancada con éxito."
