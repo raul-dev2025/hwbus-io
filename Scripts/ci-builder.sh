@@ -89,3 +89,5 @@ else
     echo "❌ ERROR EN FASE DE FIRMA / MANIFIESTO"
     exit 1
 fi
+
+fi
