@@ -32,4 +32,10 @@ fi
 # 2. Arrancar la máquina virtual solicitada
 iv_virsh start "${VM_TARGET}"
 
+# 3. Confirmación técnica de estado para el invocador
+if ! iv_virsh list --name | grep -q "^${VM_TARGET}$"; then
+    [ "${DEBUG}" -eq 1 ] && echo "[DEBUG] Error: La VM [${VM_TARGET}] no alcanzó el estado activo."
+    exit 1
+fi
+
 [ "${DEBUG}" -eq 1 ] && echo "[DEBUG] VM [${VM_TARGET}] arrancada con éxito."
