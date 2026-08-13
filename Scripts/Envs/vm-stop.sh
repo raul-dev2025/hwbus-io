@@ -22,6 +22,7 @@ if iv_virsh list --name | grep -q "^${VM_TARGET}$"; then
     [ "${DEBUG}" -eq 1 ] && echo "[DEBUG] Apagando VM [${VM_TARGET}]..."
     iv_virsh shutdown "${VM_TARGET}"
 
-else
 
+else
+    [ "${DEBUG}" -eq 1 ] && echo "[DEBUG] La VM [${VM_TARGET}] ya se encuentra apagada."
 fi
