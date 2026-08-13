@@ -18,6 +18,22 @@ REMOTE_LOG_DIR="/var/log/BuilderLogs/hwbus-io"
 LOCAL_BUILD_LOG="${LOCAL_LOG_DIR}/build_latest.log"
 REMOTE_BUILD_LOG="${REMOTE_LOG_DIR}/build_latest.log"
 
+
+# =============================
+# 0. GESTIÓN DE INFRAESTRUCTURA
+# =============================
+
+echo "=================================================="
+echo "🚀 Arrancando entorno de compilación (buildlab)..."
+echo "=================================================="
+
+# Invocar el script de arranque y capturar la salida
+START_OUTPUT=$(Scripts/Envs/./vm-start.sh buildlab)
+echo "${START_OUTPUT}"
+
+echo "✅ Entorno buildlab activo y respondiendo por SSH."
+
+
 # ==========
 # EJECUCIÓN
 # ==========
