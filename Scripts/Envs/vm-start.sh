@@ -29,7 +29,7 @@ if [ -n "${ACTIVE_VMS}" ]; then
     exit 1
 fi
 
-
+# 2. Arrancar la máquina virtual solicitada
 iv_virsh start "${VM_TARGET}"
 
 [ "${DEBUG}" -eq 1 ] && echo "[DEBUG] VM [${VM_TARGET}] arrancada con éxito."
