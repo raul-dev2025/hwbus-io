@@ -35,7 +35,9 @@ if [ -n "${ACTIVE_VMS}" ]; then
 fi
 
 # 2. Arrancar la máquina virtual solicitada
-iv_virsh start "${VM_TARGET}"
+if ! echo "${ACTIVE_VMS}" | grep -q "^${VM_TARGET}$"; then
+  iv_virsh start "${VM_TARGET}"
+fi
 
 # 3. Confirmación técnica de estado para el invocador
 if ! iv_virsh list --name | grep -q "^${VM_TARGET}$"; then
