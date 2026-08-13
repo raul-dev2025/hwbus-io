@@ -37,6 +37,10 @@ if ! echo "${START_OUTPUT}" | grep -q -E "(arrancada con éxito|se encuentra act
     exit 1
 fi
 
+echo "[INFO] Esperando disponibilidad del servicio SSH en ${REMOTE_HOST}..."
+until nc -z -w 2 "buildlab" 22 2>/dev/null; do
+    sleep 2
+done
 echo "✅ Entorno buildlab activo y respondiendo por SSH."
 
 
