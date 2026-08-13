@@ -101,4 +101,8 @@ echo "=============================================="
 STOP_OUTPUT=$(Scripts/Envs/./vm-stop.sh buildlab)
 echo "${STOP_OUTPUT}"
 
+if echo "${STOP_OUTPUT}" | grep -q "apagada con éxito"; then
+    echo "✅ Infraestructura buildlab liberada correctamente."
+else
+    echo "⚠️ Advertencia: Revisa el estado de la VM mediante ./vm-status.sh"
 fi
