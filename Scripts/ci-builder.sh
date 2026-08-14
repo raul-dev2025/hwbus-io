@@ -27,7 +27,7 @@ echo "=================================================="
 echo "🚀 Arrancando entorno de compilación (buildlab)..."
 echo "=================================================="
 
-Scripts/Envs/./vm-start.sh buildlab
+Scripts/Envs/vm-start.sh buildlab
 Scripts/Envs/vm-poll.sh buildlab 22 30
 
 # ==========
@@ -84,7 +84,7 @@ echo "=============================================="
 echo "🛑 Liberando infraestructura de compilación..."
 echo "=============================================="
 
-STOP_OUTPUT=$(Scripts/Envs/./vm-stop.sh buildlab)
+STOP_OUTPUT=$(Scripts/Envs/vm-stop.sh buildlab)
 echo "${STOP_OUTPUT}"
 
 if echo "${STOP_OUTPUT}" | grep -q "apagada con éxito"; then
