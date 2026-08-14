@@ -3,7 +3,7 @@
 # ci-runLauncher.sh - Lanzador de script remoto ci-runner.sh
 #
 
-SANDBOX_HOST="builder@acme-sandbox"
+SANDBOX_HOST="sandbox"
 REMOTE_SCRIPTS="/mnt/build-output/Repos/hwbus-io.git/Scripts"
 
 LOCAL_LOG_DIR="/mnt/datos_raul/Logs/Sandbox/hwbus-io"
