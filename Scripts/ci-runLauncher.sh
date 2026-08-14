@@ -8,12 +8,15 @@ REMOTE_SCRIPTS="/mnt/build-output/Repos/hwbus-io.git/Scripts"
 MANIFEST_FILE="/mnt/build-output/Repos/hwbus-io.git/build_state.env"
 
 LOCAL_LOG_DIR="/mnt/datos_raul/Logs/Sandbox/hwbus-io"
+LOCAL_LTP_LOG="ltp_latest.log"
+LOCAL_KO_LOG="ko_latest.log"
 
 
 echo "==============================================="
 echo "🚀 Arrancando entorno de pruebas (ACME, CIA)..."
 echo "==============================================="
 
+# 1. Arrancar vm y comprobar puerto 22
 Scripts/Envs/vm-start.sh acme-sandbox
 Scripts/Envs/vm-poll.sh acme-sandbox 22 30
 
