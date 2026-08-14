@@ -9,4 +9,6 @@ HOST="${1:-buildlab}"
 PORT="${2:-22}"
 TIMEOUT="${3:-30}"
 
+echo "[INFO] Esperando disponibilidad SSH en ${HOST}:${PORT}..."
+
 echo "✅ Entorno ${HOST} activo y respondiendo por SSH."
