@@ -11,6 +11,13 @@ LOCAL_LOG_DIR="/mnt/datos_raul/Logs/Sandbox/hwbus-io"
 MANIFEST_FILE="/mnt/build-output/Repos/hwbus-io.git/build_state.env"
 source "${MANIFEST_FILE}"
 
+echo "==============================================="
+echo "🚀 Arrancando entorno de pruebas (ACME, CIA)..."
+echo "==============================================="
+
+Scripts/Envs/vm-start.sh acme-sandbox
+Scripts/Envs/vm-poll.sh acme-sandbox 22 30
+
 if [ "${TARGET_TYPE}" = "KO" ]; then
     LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/ko_runner_latest.log"
 elif [ "${TARGET_TYPE}" = "LTP" ]; then
