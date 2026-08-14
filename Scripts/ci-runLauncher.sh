@@ -30,6 +30,8 @@ else
   LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/runner_latest.log"
 fi
 
+echo "ℹ️ Target detectado: [${TARGET_TYPE:-DESCONOCIDO}] -> Log local: ${LOCAL_RUN_LOG}"
+
 # 1. Purgado defensivo de logs locales
 mkdir -p "${LOCAL_LOG_DIR}"
 rm -f "${LOCAL_RUN_LOG}"
