@@ -5,11 +5,10 @@
 
 SANDBOX_HOST="sandbox"
 REMOTE_SCRIPTS="/mnt/build-output/Repos/hwbus-io.git/Scripts"
+MANIFEST_FILE="/mnt/build-output/Repos/hwbus-io.git/build_state.env"
 
 LOCAL_LOG_DIR="/mnt/datos_raul/Logs/Sandbox/hwbus-io"
 
-MANIFEST_FILE="/mnt/build-output/Repos/hwbus-io.git/build_state.env"
-source "${MANIFEST_FILE}"
 
 echo "==============================================="
 echo "🚀 Arrancando entorno de pruebas (ACME, CIA)..."
