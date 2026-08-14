@@ -27,22 +27,8 @@ echo "=================================================="
 echo "🚀 Arrancando entorno de compilación (buildlab)..."
 echo "=================================================="
 
-# Invocar el script de arranque y capturar la salida
-START_OUTPUT=$(Scripts/Envs/./vm-start.sh buildlab)
-echo "${START_OUTPUT}"
-
-# Verificar que la VM ha alcanzado el estado activo
-if ! echo "${START_OUTPUT}" | grep -q -E "(arrancada con éxito|se encuentra activa)"; then
-    echo "❌ Error: La infraestructura no pudo iniciar buildlab."
-    exit 1
-fi
-
-echo "[INFO] Esperando disponibilidad del servicio SSH en ${REMOTE_HOST}..."
-until nc -z -w 2 "buildlab" 22 2>/dev/null; do
-    sleep 2
-done
-echo "✅ Entorno buildlab activo y respondiendo por SSH."
-
+Scripts/Envs/./vm-start.sh buildlab
+Scripts/Envs/vm-poll.sh buildlab 22 30
 
 # ==========
 # EJECUCIÓN
