@@ -20,10 +20,14 @@ echo "==============================================="
 Scripts/Envs/vm-start.sh acme-sandbox
 Scripts/Envs/vm-poll.sh acme-sandbox 22 30
 
-if [ "${TARGET_TYPE}" = "KO" ]; then
-    LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/ko_runner_latest.log"
-elif [ "${TARGET_TYPE}" = "LTP" ]; then
-    LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/ltp_runner_latest.log"
+# Consultar el manifiesto para determinar el log KO/LTP
+TARGET_TYPE=$(ssh "${SANDBOX_HOST}" "grep '^TARGET_TYPE=' '${MANIFEST_FILE}' | cut -d'=' -f2 | tr -d '\"'")
+if [ "${TARGET_TYPE}" = "LTP" ]; then
+  LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/${LOCAL_LTP_LOG}"
+elif [ "${TARGET_TYPE}" = "KO" ]; then
+  LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/${LOCAL_KO_LOG}"
+else
+  LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/runner_latest.log"
 fi
 
 # 1. Purgado defensivo de logs locales
