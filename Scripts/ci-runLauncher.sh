@@ -3,6 +3,7 @@
 # ci-runLauncher.sh - Lanzador de script remoto ci-runner.sh
 #
 
+VM_NAME="acme-sandbox"
 SANDBOX_HOST="sandbox"
 REMOTE_SCRIPTS="/mnt/build-output/Repos/hwbus-io.git/Scripts"
 MANIFEST_FILE="/mnt/build-output/Repos/hwbus-io.git/build_state.env"
@@ -17,14 +18,14 @@ echo "🚀 Arrancando entorno de pruebas (ACME, CIA)..."
 echo "==============================================="
 
 # 1. Arrancar vm y comprobar puerto 22
-Scripts/Envs/vm-start.sh acme-sandbox
+Scripts/Envs/vm-start.sh "${VM_NAME}"
 
 if ! Scripts/Envs/vm-poll.sh acme-sandbox 22 30; then
     echo "❌ Error: La VM no levantó el servicio SSH a tiempo."
     echo "=============================================="
     echo "🛑 Liberando infraestructura..."
     echo "=============================================="
-    Scripts/Envs/vm-stop.sh acme-sandbox
+    Scripts/Envs/vm-stop.sh "${VM_NAME}"
     exit 1
 fi
 
