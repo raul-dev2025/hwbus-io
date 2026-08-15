@@ -45,11 +45,12 @@ mkdir -p "${LOCAL_LOG_DIR}"
 rm -f "${LOCAL_RUN_LOG}"
 
 # 4. Invocación SSH con captura de salida y evaluación de retorno
+EXEC_STATUS=0
 if ssh "${SANDBOX_HOST}" "${REMOTE_SCRIPTS}/ci-runner.sh" > "${LOCAL_RUN_LOG}" 2>&1; then
     echo "✅ TEST RUNNER SUCCESSFUL --> ${LOCAL_RUN_LOG}"
 else
     echo "❌ TEST RUNNER FAILED -> Ver: ${LOCAL_RUN_LOG}"
-    exit 1
+    EXEC_STATUS=1
 fi
 
 echo "=============================================="
