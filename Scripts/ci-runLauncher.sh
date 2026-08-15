@@ -39,7 +39,7 @@ fi
 LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/${LOG_FILENAME}"
 REMOTE_LOG_PATH="/var/log/Sandbox/hwbus-io/${LOG_FILENAME}"
 
-echo "ℹ️ Target detectado: [${TARGET_TYPE:-DESCONOCIDO}] -> Log local: ${LOCAL_RUN_LOG}"
+echo "ℹ️ Target detectado: [${TARGET_TYPE:-DESCONOCIDO}]"
 
 # 3. Purgado defensivo de logs locales
 mkdir -p "${LOCAL_LOG_DIR}"
@@ -55,9 +55,8 @@ else
 fi
 
 # Extraemos el log nativo generado dentro de la Sandbox
-echo "📥 Volcando log remoto intacto hacia ${LOCAL_RUN_LOG}..."
 if ssh "${SANDBOX_HOST}" "cat '${REMOTE_LOG_PATH}'" > "${LOCAL_RUN_LOG}" 2>/dev/null; then
-    echo "📄 Log guardado correctamente."
+    echo "📄 Log guardado correctamente en: ${LOCAL_RUN_LOG}"
 else
     echo "⚠️ No se pudo obtener el archivo de log remoto desde ${REMOTE_LOG_PATH}."
 fi
