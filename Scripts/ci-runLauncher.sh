@@ -9,9 +9,6 @@ REMOTE_SCRIPTS="/mnt/build-output/Repos/hwbus-io.git/Scripts"
 MANIFEST_FILE="/mnt/build-output/Repos/hwbus-io.git/build_state.env"
 
 LOCAL_LOG_DIR="/mnt/datos_raul/Logs/Sandbox/hwbus-io"
-LOCAL_LTP_LOG="ltp_latest.log"
-LOCAL_KO_LOG="ko_latest.log"
-
 
 echo "==============================================="
 echo "🚀 Arrancando entorno de pruebas (ACME, CIA)..."
@@ -32,12 +29,15 @@ fi
 # 2. Consultar el manifiesto para determinar el log KO/LTP
 TARGET_TYPE=$(ssh "${SANDBOX_HOST}" "grep '^TARGET_TYPE=' '${MANIFEST_FILE}' | cut -d'=' -f2 | tr -d '\"'")
 if [ "${TARGET_TYPE}" = "LTP" ]; then
-  LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/${LOCAL_LTP_LOG}"
+  LOG_FILENAME="ltp_latest.log"
 elif [ "${TARGET_TYPE}" = "KO" ]; then
-  LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/${LOCAL_KO_LOG}"
+  LOG_FILENAME="ko_latest.log"
 else
-  LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/runner_latest.log"
+  LOG_FILENAME="runner_latest.log"
 fi
+
+LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/${LOG_FILENAME}"
+REMOTE_LOG_PATH="/var/log/Sandbox/hwbus-io/${LOG_FILENAME}"
 
 echo "ℹ️ Target detectado: [${TARGET_TYPE:-DESCONOCIDO}] -> Log local: ${LOCAL_RUN_LOG}"
 
@@ -47,11 +47,19 @@ rm -f "${LOCAL_RUN_LOG}"
 
 # 4. Invocación SSH con captura de salida y evaluación de retorno
 EXEC_STATUS=0
-if ssh "${SANDBOX_HOST}" "${REMOTE_SCRIPTS}/ci-runner.sh" > "${LOCAL_RUN_LOG}" 2>&1; then
-    echo "✅ TEST RUNNER SUCCESSFUL --> ${LOCAL_RUN_LOG}"
+if ssh "${SANDBOX_HOST}" "${REMOTE_SCRIPTS}/ci-runner.sh"; then
+    echo "✅ TEST RUNNER SUCCESSFUL"
 else
-    echo "❌ TEST RUNNER FAILED -> Ver: ${LOCAL_RUN_LOG}"
+    echo "❌ TEST RUNNER FAILED"
     EXEC_STATUS=1
+fi
+
+# Extraemos el log nativo generado dentro de la Sandbox
+echo "📥 Volcando log remoto intacto hacia ${LOCAL_RUN_LOG}..."
+if ssh "${SANDBOX_HOST}" "cat '${REMOTE_LOG_PATH}'" > "${LOCAL_RUN_LOG}" 2>/dev/null; then
+    echo "📄 Log guardado correctamente."
+else
+    echo "⚠️ No se pudo obtener el archivo de log remoto desde ${REMOTE_LOG_PATH}."
 fi
 
 echo "=============================================="
