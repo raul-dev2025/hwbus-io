@@ -28,6 +28,7 @@ if ! Scripts/Envs/vm-poll.sh acme-sandbox 22 30; then
     exit 1
 fi
 
+# 2. Consultar el manifiesto para determinar el log KO/LTP
 TARGET_TYPE=$(ssh "${SANDBOX_HOST}" "grep '^TARGET_TYPE=' '${MANIFEST_FILE}' | cut -d'=' -f2 | tr -d '\"'")
 if [ "${TARGET_TYPE}" = "LTP" ]; then
   LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/${LOCAL_LTP_LOG}"
