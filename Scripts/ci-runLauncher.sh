@@ -32,11 +32,11 @@ fi
 
 echo "ℹ️ Target detectado: [${TARGET_TYPE:-DESCONOCIDO}] -> Log local: ${LOCAL_RUN_LOG}"
 
-# 1. Purgado defensivo de logs locales
+# 3. Purgado defensivo de logs locales
 mkdir -p "${LOCAL_LOG_DIR}"
 rm -f "${LOCAL_RUN_LOG}"
 
-# 2. Invocación SSH con captura de salida y evaluación de retorno
+# 4. Invocación SSH con captura de salida y evaluación de retorno
 if ssh "${SANDBOX_HOST}" "${REMOTE_SCRIPTS}/ci-runner.sh" > "${LOCAL_RUN_LOG}" 2>&1; then
     echo "✅ TEST RUNNER SUCCESSFUL --> ${LOCAL_RUN_LOG}"
 else
