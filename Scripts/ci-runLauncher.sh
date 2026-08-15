@@ -18,9 +18,16 @@ echo "==============================================="
 
 # 1. Arrancar vm y comprobar puerto 22
 Scripts/Envs/vm-start.sh acme-sandbox
-Scripts/Envs/vm-poll.sh acme-sandbox 22 30
 
-# Consultar el manifiesto para determinar el log KO/LTP
+if ! Scripts/Envs/vm-poll.sh acme-sandbox 22 30; then
+    echo "❌ Error: La VM no levantó el servicio SSH a tiempo."
+    echo "=============================================="
+    echo "🛑 Liberando infraestructura..."
+    echo "=============================================="
+    Scripts/Envs/vm-stop.sh acme-sandbox
+    exit 1
+fi
+
 TARGET_TYPE=$(ssh "${SANDBOX_HOST}" "grep '^TARGET_TYPE=' '${MANIFEST_FILE}' | cut -d'=' -f2 | tr -d '\"'")
 if [ "${TARGET_TYPE}" = "LTP" ]; then
   LOCAL_RUN_LOG="${LOCAL_LOG_DIR}/${LOCAL_LTP_LOG}"
