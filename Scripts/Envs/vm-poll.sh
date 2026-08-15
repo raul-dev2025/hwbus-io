@@ -12,7 +12,7 @@ TIMEOUT="${3:-30}"
 echo "[INFO] Esperando disponibilidad SSH en ${HOST}:${PORT}..."
 
 ELAPSED=0
-until nc -z -w 2 "${HOST}" "${PORT}" 2>/dev/null; do
+until ssh -p "${PORT}" -o BatchMode=yes -o ConnectTimeout=2 StrictHostKeyChecking=no "${HOST}" "exit" 2>/dev/null; do
     sleep 2
     ELAPSED=$((ELAPSED + 2))
     if [ "${ELAPSED}" -ge "${TIMEOUT}" ]; then
