@@ -15,8 +15,6 @@ ELAPSED=0
 until ssh -p "${PORT}" \
   -o BatchMode=yes \
   -o ConnectTimeout=2 \
-  -o StrictHostKeyChecking=no \
-  -o UserKnownHostsFile=/dev/null \
   "${HOST}" "exit" 2>/dev/null; do
     sleep 2
     ELAPSED=$((ELAPSED + 2))
