@@ -8,8 +8,8 @@ set -e
 MANIFEST_FILE="${1:-/mnt/build-output/Repos/hwbus-io.git/build_state.env}"
 
 LOG_DIR="/var/log/Sandbox/hwbus-io"
-KO_LOG="${LOG_DIR}/ko_runner_latest.log"
-LTP_LOG="${LOG_DIR}/ltp_runner_latest.log"
+KO_LOG="${LOG_DIR}/ko_latest.log"
+LTP_LOG="${LOG_DIR}/ltp_latest.log"
 
 # 1. Validar existencia del manifiesto
 if [ ! -f "${MANIFEST_FILE}" ]; then
