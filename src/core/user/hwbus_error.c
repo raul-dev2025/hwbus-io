@@ -1,8 +1,17 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+/*
+ * hwbus_error.c - Descripción del módulo/archivo
+ *
+ * Copyright (C) 2026 Raúl <tu-email@dominio.com>
+ */
+
 #include "hwbus_error.h"
 #include <string.h>
 
-const char* hwbus_strerror(int errnum) {
-  if (errnum < 0) {
+const char *hwbus_strerror(int errnum)
+{
+  if (errnum < 0)
+  {
     errnum = -errnum;
   }
 
@@ -19,9 +28,9 @@ const char* hwbus_strerror(int errnum) {
     return "Hardware operation or BAR mapping not supported";
   }
 
-  if (errnum < HWBUS_ERR_BASE) {
+  if (errnum < HWBUS_ERR_BASE)
+  {
     return strerror(errnum);
   }
   return "Unknown HWBUS error code";
-
 }

@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2026 Raúl Vílchez Ruiz <raulmicrosistemas@gmail.com>
 #
 # vm-stop.sh - Apaga una VM con espera activa
 #
-
 set -e
 
 VM_TARGET="$1"

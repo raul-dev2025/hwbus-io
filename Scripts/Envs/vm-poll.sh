@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2026 Raúl Vílchez Ruiz <tu-email@dominio.com>
 #
 # vm-poll.sh - Espera a que la pila de red/SSH de una VM esté disponible
 #
-
 set -e
 
 HOST="${1:-buildlab}"

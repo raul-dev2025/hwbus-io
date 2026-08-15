@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2026 Raúl Vílchez Ruiz <raulmicrosistemas@gmail.com>
 #
 # ci-runner.sh - Ejecutor local autónomo de pruebas en acme-sandbox
 #
-
 set -e
 
 MANIFEST_FILE="${1:-/mnt/build-output/Repos/hwbus-io.git/build_state.env}"

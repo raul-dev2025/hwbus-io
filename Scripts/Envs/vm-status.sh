@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2026 Raúl Vílchez Ruiz <raulmicrosistemas@gmail.com>
 #
 # vm-status.sh - Helper de consulta para virt-admin
 #
-
 set -e
 
 iv_user() {

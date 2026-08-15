@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2026 Raúl Vílchez Ruiz <raulmicrosistemas@gmail.com>
 #
 # ci-runLauncher.sh - Lanzador de script remoto ci-runner.sh
 #
-
 VM_NAME="acme-sandbox"
 SANDBOX_HOST="sandbox"
 REMOTE_SCRIPTS="/mnt/build-output/Repos/hwbus-io.git/Scripts"

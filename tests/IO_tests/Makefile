@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2026 Raúl Vílchez Ruiz <raulmicrosistemas@gmail.com>
+#
+# Makefile - Build instructions for hwbus-io
+#
 LTP_SRC ?= /home/builder/Repos/ltp
 
 CFLAGS  += -Wall -I../include -I$(LTP_SRC)/include -I$(LTP_SRC)/include/old

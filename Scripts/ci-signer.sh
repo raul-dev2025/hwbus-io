@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-2.0-or-later
+# Copyright (C) 2026 Raúl Vílchez Ruiz <raulmicrosistemas@gmail.com>
 #
 # ci-signer.sh - Firma de módulos y generación de manifiesto en buildlab
 #
-
 set -e
 
 BUILD_TYPE="${1:-KO}"
