@@ -58,7 +58,7 @@ echo "=============================================="
 echo "🛑 Liberando infraestructura de compilación..."
 echo "=============================================="
 
-STOP_OUTPUT=$(Scripts/Envs/vm-stop.sh acme-sandbox)
+STOP_OUTPUT=$(Scripts/Envs/vm-stop.sh "${VM_NAME}")
 echo "${STOP_OUTPUT}"
 
 if echo "${STOP_OUTPUT}" | grep -q "apagada con éxito"; then
