@@ -73,5 +73,3 @@ elif [ "${TARGET_TYPE}" = "LTP" ]; then
         "${TEST_BINARY_PATH}"
     } > "${RUN_LOG}" 2>&1
 fi
-
-echo "✅ Pruebas finalizadas con éxito en Sandbox. Log registrado en: ${RUN_LOG}"
