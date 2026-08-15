@@ -20,7 +20,7 @@ echo "==============================================="
 # 1. Arrancar vm y comprobar puerto 22
 Scripts/Envs/vm-start.sh "${VM_NAME}"
 
-if ! Scripts/Envs/vm-poll.sh acme-sandbox 22 30; then
+if ! Scripts/Envs/vm-poll.sh "${SANDBOX_HOST}" 22 30; then
     echo "❌ Error: La VM no levantó el servicio SSH a tiempo."
     echo "=============================================="
     echo "🛑 Liberando infraestructura..."
