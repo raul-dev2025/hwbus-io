@@ -12,5 +12,8 @@ static ssize_t hwbus_pci_config_read(struct file *filp, char __user *buf,
   struct pci_dev *pdev = get_target_pci_dev();
   u16 val;
 
+  if (!pdev)
+    return -ENODEV;
+
   return 0;
 }
