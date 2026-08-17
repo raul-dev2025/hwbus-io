@@ -15,5 +15,14 @@ static ssize_t hwbus_pci_config_read(struct file *filp, char __user *buf,
   if (!pdev)
     return -ENODEV;
 
+  if (*f_pos == 0 && count >= 2)
+  {
+    pci_read_config_word(pdev, PCI_VENDOR_ID, &val);
+    if (copy_to_user(buf, &val, 2))
+      return -EFAULT;
+    *f_pos += 2;
+    return 2;
+  }
+
   return 0;
 }
