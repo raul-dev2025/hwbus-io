@@ -9,5 +9,8 @@
 static ssize_t hwbus_pci_config_read(struct file *filp, char __user *buf,
                                      size_t count, loff_t *f_pos)
 {
+  struct pci_dev *pdev = get_target_pci_dev();
+  u16 val;
+
   return 0;
 }
