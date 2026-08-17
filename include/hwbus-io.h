@@ -5,6 +5,9 @@
 #include <linux/kernel.h>
 #include <linux/init.h>
 #include <linux/types.h>
+#include <linux/fs.h>
+#include <linux/cdev.h>
+#include <linux/device.h>
 
 #define HWBUS_MODULE_NAME "hwbus_io"
 #define HWBUS_MODULE_VERSION "0.1.0"
