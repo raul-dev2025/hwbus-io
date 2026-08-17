@@ -19,5 +19,11 @@ struct pci_dev *hwbus_get_pci_dev_from_param(void)
 {
   unsigned int domain, bus, slot, func;
 
+  if (sscanf(hwbus_bdf_param, "%x:%x:%x.%x", &domain, &bus, &slot, &func) != 4)
+  {
+    pr_err("hwbus_io: Formato BDF invalido: %s. Use XXXX:YY:ZZ.W\n", hwbus_bdf_param);
+    return NULL;
+  }
+
   return pci_get_domain_bus_and_slot(domain, bus, PCI_DEVFN(slot, func));
 };
