@@ -8,6 +8,8 @@
 
 #define HWBUS_MODULE_NAME "hwbus_io"
 #define HWBUS_MODULE_VERSION "0.1.0"
+#define HWBUS_MAJOR 0
+#define HWBUS_DEVS 1
 
 /**
  * struct hwbus_dev - Estructura principal de contexto del driver hwbus-io
