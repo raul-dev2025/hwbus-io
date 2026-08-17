@@ -23,6 +23,7 @@ struct hwbus_dev
 {
   u32 dev_id;
   bool is_active;
+  struct cdev cdev;
 };
 
 int __init hwbus_init(void);
