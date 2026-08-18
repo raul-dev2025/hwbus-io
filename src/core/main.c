@@ -51,3 +51,26 @@ struct file_operations hwbus_fops = {
     .release = hwbus_release,
     .read = hwbus_pci_config_read,
 };
+
+static int __init hwbus_init(void)
+{
+  int result;
+
+  if (hwbus_major)
+  {
+    dev_num = MKDEV(hwbus_major, 0);
+    result = register_chrdev_region(dev_num, hwbus_devs_count, "hwbusc");
+  }
+  else
+  {
+    result = alloc_chrdev_region(&dev_num, 0, hwbus_devs_count, "hwbusc");
+    hwbus_major = MAJOR(dev_num);
+  }
+
+  if (result < 0)
+  {
+    pr_err("hwbus_io: No se pudo obtener el numero major %d\n", hwbus_major);
+    return result;
+  }
+
+}
