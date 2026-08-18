@@ -74,3 +74,15 @@ static int __init hwbus_init(void)
   }
 
 }
+
+static void __exit hwbus_exit(void)
+{
+  device_destroy(hwbus_class, dev_num);
+  class_destroy(hwbus_class);
+  cdev_del(&hwbus_device_data.cdev);
+  unregister_chrdev_region(dev_num, hwbus_devs_count);
+  pr_info("hwbus_io: Módulo descargado correctamente\n");
+}
+
+module_init(hwbus_init);
+module_exit(hwbus_exit);
