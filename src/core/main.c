@@ -82,6 +82,15 @@ static int __init hwbus_init(void)
     pr_err("hwbus_io: Error %d al añadir el cdev\n", result);
     goto fail_unregister;
   }
+  // Creacion automatica de la clase y el nodo /dev/hwbusc via udev
+  hwbus_class = class_create("hwbusc");
+  if (IS_ERR(hwbus_class))
+  {
+    result = PTR_ERR(hwbus_class);
+    pr_err("hwbus_io: Error al crear la clase de dispositivo\n");
+    goto fail_cdev_del;
+  }
+
 }
 
 static void __exit hwbus_exit(void)
