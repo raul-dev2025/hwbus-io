@@ -31,6 +31,20 @@ static struct hwbus_dev hwbus_device_data;
 
 ssize_t hwbus_pci_config_read(struct file *filp, char __user *buf,
                               size_t count, loff_t *f_pos);
+
+static int hwbus_open(struct inode *inode, struct file *filp)
+{
+  struct hwbus_dev *dev;
+  dev = container_of(inode->i_cdev, struct hwbus_dev, cdev);
+  filp->private_data = dev;
+  return 0;
+}
+
+static int hwbus_release(struct inode *inode, struct file *filp)
+{
+  return 0;
+}
+
 struct file_operations hwbus_fops = {
     .owner = THIS_MODULE,
     .open = hwbus_open,
