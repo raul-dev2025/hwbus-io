@@ -23,3 +23,8 @@ MODULE_VERSION("0.0.1");
 static int hwbus_major = HWBUS_MAJOR;
 static int hwbus_devs_count = HWBUS_DEVS;
 static dev_t dev_num;
+
+// Modelo de dispositivo y estructuras de estado
+static struct class *hwbus_class = NULL;
+static struct device *hwbus_device = NULL;
+static struct hwbus_dev hwbus_device_data;
