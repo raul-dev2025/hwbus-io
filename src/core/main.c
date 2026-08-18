@@ -13,3 +13,8 @@
 #include <linux/uaccess.h>
 #include <hwbus-io.h>
 #include "hwbus_param.h"
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Raul Vilchez");
+MODULE_DESCRIPTION("Simple char device");
+MODULE_VERSION("0.0.1");
