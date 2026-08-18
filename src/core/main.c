@@ -28,3 +28,6 @@ static dev_t dev_num;
 static struct class *hwbus_class = NULL;
 static struct device *hwbus_device = NULL;
 static struct hwbus_dev hwbus_device_data;
+
+ssize_t hwbus_pci_config_read(struct file *filp, char __user *buf,
+                              size_t count, loff_t *f_pos);
