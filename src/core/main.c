@@ -31,3 +31,9 @@ static struct hwbus_dev hwbus_device_data;
 
 ssize_t hwbus_pci_config_read(struct file *filp, char __user *buf,
                               size_t count, loff_t *f_pos);
+struct file_operations hwbus_fops = {
+    .owner = THIS_MODULE,
+    .open = hwbus_open,
+    .release = hwbus_release,
+    .read = hwbus_pci_config_read,
+};
