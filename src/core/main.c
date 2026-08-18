@@ -91,6 +91,14 @@ static int __init hwbus_init(void)
     goto fail_cdev_del;
   }
 
+  hwbus_device = device_create(hwbus_class, NULL, dev_num, NULL, "hwbusc");
+  if (IS_ERR(hwbus_device))
+  {
+    result = PTR_ERR(hwbus_device);
+    pr_err("hwbus_io: Error al crear el nodo /dev/hwbusc\n");
+    goto fail_class_destroy;
+  }
+
 }
 
 static void __exit hwbus_exit(void)
