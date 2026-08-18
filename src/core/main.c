@@ -99,6 +99,9 @@ static int __init hwbus_init(void)
     goto fail_class_destroy;
   }
 
+  hwbus_device_data.dev_id = 1;
+  hwbus_device_data.is_active = true;
+
 }
 
 static void __exit hwbus_exit(void)
