@@ -73,6 +73,15 @@ static int __init hwbus_init(void)
     return result;
   }
 
+  // Inicializar e integrar el cdev en el kernel
+  cdev_init(&hwbus_device_data.cdev, &hwbus_fops);
+  hwbus_device_data.cdev.owner = THIS_MODULE;
+  result = cdev_add(&hwbus_device_data.cdev, dev_num, 1);
+  if (result < 0)
+  {
+    pr_err("hwbus_io: Error %d al añadir el cdev\n", result);
+    goto fail_unregister;
+  }
 }
 
 static void __exit hwbus_exit(void)
