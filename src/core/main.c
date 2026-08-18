@@ -110,6 +110,10 @@ static int __init hwbus_init(void)
     goto fail_device_destroy;
   }
 
+  hwbus_device_data.pdev = pdev;
+
+  pr_info("hwbus_io: Módulo cargado correctamente con Major %d en /dev/hwbusc\n", hwbus_major);
+  return 0;
 
 fail_device_destroy:
   device_destroy(hwbus_class, dev_num);
