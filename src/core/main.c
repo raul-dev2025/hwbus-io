@@ -102,6 +102,24 @@ static int __init hwbus_init(void)
   hwbus_device_data.dev_id = 1;
   hwbus_device_data.is_active = true;
 
+  struct pci_dev *pdev = hwbus_get_pci_dev_from_param();
+  if (!pdev)
+  {
+    pr_err("hwbus_io: No se pudo encontrar el dispositivo PCI especificado en bdf=%s\n", hwbus_bdf_param);
+    result = -ENODEV;
+    goto fail_device_destroy;
+  }
+
+
+fail_device_destroy:
+  device_destroy(hwbus_class, dev_num);
+fail_class_destroy:
+  class_destroy(hwbus_class);
+fail_cdev_del:
+  cdev_del(&hwbus_device_data.cdev);
+fail_unregister:
+  unregister_chrdev_region(dev_num, hwbus_devs_count);
+  return result;
 }
 
 static void __exit hwbus_exit(void)
