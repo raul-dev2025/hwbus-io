@@ -29,7 +29,4 @@ struct hwbus_dev
   struct pci_dev *pdev;
 };
 
-int __init hwbus_init(void);
-void __exit hwbus_exit(void);
-
 #endif // HWBUS_IO_H
