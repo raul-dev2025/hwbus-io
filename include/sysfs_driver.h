@@ -1,8 +1,8 @@
 #ifndef HWBUS_SYSFS_DRIVER_H
 #define HWBUS_SYSFS_DRIVER_H
 
-#include <linux/sysfs.h>
 #include <linux/device.h>
+#include <linux/sysfs.h>
 
 /* Funciones nativas para inicializar y remover los atributos del driver en sysfs */
 int hwbus_sysfs_init(struct device *dev);
