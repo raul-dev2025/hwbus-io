@@ -7,8 +7,8 @@
 #include <hwbus_param.h>
 #include <linux/pci.h>
 
-static ssize_t hwbus_pci_config_read(struct file *filp, char __user *buf,
-                                     size_t count, loff_t *f_pos)
+ssize_t hwbus_pci_config_read(struct file *filp, char __user *buf,
+                              size_t count, loff_t *f_pos)
 {
   struct pci_dev *pdev = hwbus_get_pci_dev_from_param();
   u16 val;
