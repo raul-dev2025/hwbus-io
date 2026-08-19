@@ -7,6 +7,8 @@
 #include <hwbus_param.h>
 #include <linux/pci.h>
 
+#include <sysfs_driver.h>
+
 ssize_t hwbus_pci_config_read(struct file *filp, char __user *buf,
                               size_t count, loff_t *f_pos)
 {
