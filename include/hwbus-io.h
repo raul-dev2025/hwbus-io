@@ -1,13 +1,13 @@
 #ifndef HWBUS_IO_H
 #define HWBUS_IO_H
 
-#include <linux/module.h>
-#include <linux/kernel.h>
-#include <linux/init.h>
-#include <linux/types.h>
-#include <linux/fs.h>
 #include <linux/cdev.h>
 #include <linux/device.h>
+#include <linux/fs.h>
+#include <linux/init.h>
+#include <linux/kernel.h>
+#include <linux/module.h>
+#include <linux/types.h>
 
 #define HWBUS_MODULE_NAME "hwbus_io"
 #define HWBUS_MODULE_VERSION "0.1.0"
