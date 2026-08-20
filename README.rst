@@ -28,8 +28,7 @@ Project Structure
    │   ├── driver/       # Kernel module implementation (.ko)
    │   └── core/         # Core helper functions and error handling
    ├── tests/            # Kernel module tests and Makefile harness
-   ├── Scripts/          # Automation tools (test-runner.sh)
-   ├── ci-runner.sh      # Remote CI integration and build script
+   ├── Scripts/          # Automation tools (ci-cd)
    ├── Makefile          # Top-level build automation
    ├── LICENSE           # GNU General Public License v2.0
    └── README.rst
