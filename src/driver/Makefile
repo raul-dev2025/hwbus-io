@@ -6,3 +6,6 @@
 
 
 obj-m += sysfs_driver.o
+
+# Cabeceras del proyecto
+ccflags-y := -I$(src)/../../include

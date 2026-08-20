@@ -4,15 +4,13 @@
  *
  * Copyright (C) 2026 Raúl Vílchez Ruiz <raulmicrosistemas@gmail.com>
  */
-
-#include "sysfs_utils.h"
-#include "hwbus_error.h"
-
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <fcntl.h>
+#include "sysfs_utils.h"
 #include <unistd.h>
+#include "hwbus_error.h"
 
 int sysfs_build_path(char *dest, size_t max_len, const char *subsys, const char *dev_id, const char *attr)
 {

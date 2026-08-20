@@ -3,10 +3,13 @@
 #
 # Makefile - Build instructions for hwbus-io
 #
+DRIVER_DIR ?= ../driver
 
-
-
-obj-m += hello.o
+obj-m += hwbus_io.o
+hwbus_io-y := main.o hwbus_param.o $(DRIVER_DIR)/sysfs_driver.o
 
 # obj-m += mi_modulo.o
 # mi_modulo-y := hello.c otro.c otro_mas.c
+
+# Cabeceras del proyecto
+ccflags-y := -I$(src)/../../include
