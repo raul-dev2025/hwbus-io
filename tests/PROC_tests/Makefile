@@ -4,15 +4,20 @@ CFLAGS += -Wall -I../include -I$(LTP_SRC)/include -I$(LTP_SRC)/include/old
 LDFLAGS += -L$(LTP_SRC)/lib
 LDLIBS += -lltp
 
+# Detecta todas las fuentes y  permite invocar objetos individuales
+SRCS := $(wildcard *.c)
+TARGETS := $(SRCS:.c=)
+
 .PHONY: all clean
 
-all: sysconf01 fork01
+# Compila todo con 'make' o 'make all'
+all: $(TARGETS)
 
-sysconf01: sysconf_test.c
+# regla implicita para compilar individualmente
+%: %.c
 	$(CC) $(CFLAGS) $(LDFLAGS) $< $(LDLIBS) -o $@
 
-fork01: fork_test.c
-	$(CC) $(CFLAGS) $(LDFLAGS) $< $(LDLIBS) -o $@
 
-clean: 
-	rm -f sysconf01 fork01 *.o
+
+clean:
+	rm -f $(TARGETS)

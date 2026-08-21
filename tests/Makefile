@@ -3,12 +3,13 @@
 #
 # Makefile - Build instructions for hwbus-io
 #
-
-.PHONY: all test clean
+SUBDIRS := hwbus_io IO_tests BUS_tests PROC_tests
 
 # Subdirectorio activo configurado en el propio Makefile
 SUBDIR ?= hwbus_io
 TARGET ?= hwbus_io01
+
+.PHONY: all test clean $(SUBDIRS)
 
 # Compila el test configurado
 test:
@@ -16,7 +17,11 @@ test:
 
 # Compila toda la bateria de tests
 all:
-	$(MAKE) -C $(SUBDIR) all
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir all; \
+	done
 
 clean:
-	$(MAKE) -C $(SUBDIR) clean
+	@for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir clean; \
+	done

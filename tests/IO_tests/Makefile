@@ -9,17 +9,20 @@ CFLAGS  += -Wall -I../include -I$(LTP_SRC)/include -I$(LTP_SRC)/include/old
 LDFLAGS += -L$(LTP_SRC)/lib
 LDLIBS  += -lltp
 
-.PHONY: clean mmap01 direct_io01
+# Detecta todas las fuentes y  permite invocar objetos individuales
+SRCS := $(wildcard *.c)
+TARGETS := $(SRCS:.c=)
 
-# Switch on/off when needed, but then turn off specific tests
-# all: mmap01 direct_io01
+.PHONY: all clean
 
-# Reglas explícitas individuales (sin target 'all')
-mmap01: mmap01.c
+# Compila todo con 'make' o 'make all'
+all: $(TARGETS)
+
+# regla implicita para compilar individualmente
+%: %.c
 	$(CC) $(CFLAGS) $(LDFLAGS) $< $(LDLIBS) -o $@
 
-direct_io01: direct_io_test.c
-	$(CC) $(CFLAGS) $(LDFLAGS) $< $(LDLIBS) -o $@
+
 
 clean:
-	rm -f mmap01 direct_io01 *.o
+	rm -f $(TARGETS)
