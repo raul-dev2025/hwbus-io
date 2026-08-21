@@ -16,11 +16,13 @@ echo "🚀 Arrancando entorno de pruebas (ACME, CIA)..."
 echo "==============================================="
 
 # 1. Arrancar vm y comprobar puerto 22
-Scripts/Envs/vm-start.sh "${VM_NAME}"
+if ! Scripts/Envs/vm-start.sh "${VM_NAME}", then
+  echo "❌ Error: Falla al iniciar la VM ${VM_NAME}. Abortando."
+  exit 1
+fi
 
 if ! Scripts/Envs/vm-poll.sh "${SANDBOX_HOST}" 22 30; then
     echo "❌ Error: La VM no levantó el servicio SSH a tiempo."
-    echo "=============================================="
     echo "🛑 Liberando infraestructura..."
     echo "=============================================="
     Scripts/Envs/vm-stop.sh "${VM_NAME}"
@@ -62,9 +64,7 @@ else
     echo "⚠️ No se pudo obtener el archivo de log remoto desde ${REMOTE_LOG_PATH}."
 fi
 
-echo "=============================================="
 echo "🛑 Liberando infraestructura de compilación..."
-echo "=============================================="
 
 STOP_OUTPUT=$(Scripts/Envs/vm-stop.sh "${VM_NAME}")
 echo "${STOP_OUTPUT}"

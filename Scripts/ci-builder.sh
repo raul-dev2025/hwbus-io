@@ -43,14 +43,10 @@ ssh "${REMOTE_HOST}" "mkdir -p ${REMOTE_LOG_DIR} && rm -f ${REMOTE_BUILD_LOG}"
 
 # 2. Construcción del comando make según BUILD_TYPE
 if [ "${BUILD_TYPE}" = "KO" ]; then
-    echo "=============================================="
     echo "🧹 Compilando Módulo Kernel (.ko): ${BINARY_NAME}..."
-    echo "=============================================="
     MAKE_CMD="make -C ${REMOTE_ROOT} clean && make -C ${REMOTE_ROOT} module"    
 elif [ "${BUILD_TYPE}" = "LTP" ]; then
-    echo "=============================================="
     echo "🧹 Compilando Test LTP: ${BINARY_NAME}..."
-    echo "=============================================="
     MAKE_CMD="make -C ${REMOTE_ROOT} clean && make -C ${REMOTE_ROOT} test"
 else
     echo "❌ Error: BUILD_TYPE no reconocido [${BUILD_TYPE}]. Use 'KO' o 'LTP'."

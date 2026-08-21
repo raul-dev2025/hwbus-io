@@ -14,9 +14,7 @@ MANIFEST_FILE="${REPO_DIR}/build_state.env"
 PRIV_KEY="/etc/secureboot/buildlab.priv"
 DER_CERT="/etc/secureboot/buildlab.der"
 
-echo "=============================================="
 echo "📝 Procesando entregable de build [${BUILD_TYPE}]..."
-echo "=============================================="
 
 if [ "${BUILD_TYPE}" = "KO" ]; then
     # 1. Localizar dinámicamente el archivo .ko en src/
