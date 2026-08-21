@@ -18,6 +18,11 @@ TARGETS := $(SRCS:.c=)
 # Compila todo con 'make' o 'make all'
 all: $(TARGETS)
 
+# regla implicita para compilar individualmente
+%: %.c
+	$(CC) $(CFLAGS) $(LDFLAGS) $< $(LDLIBS) -o $@
+
+
 
 clean:
 	rm -f $(TARGETS)
