@@ -63,7 +63,7 @@ else
 fi
 
 echo "=============================================="
-echo "🔏 Generando manifiesto y firma..."
+echo "🔏 Generando manifiesto y firma(si es .KO)..."
 echo "=============================================="
 
 # 4. Transición a la fase de firma/manifiesto

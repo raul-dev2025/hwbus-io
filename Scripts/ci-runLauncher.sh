@@ -16,7 +16,7 @@ echo "🚀 Arrancando entorno de pruebas (ACME, CIA)..."
 echo "==============================================="
 
 # 1. Arrancar vm y comprobar puerto 22
-if ! Scripts/Envs/vm-start.sh "${VM_NAME}", then
+if ! Scripts/Envs/vm-start.sh "${VM_NAME}"; then
   echo "❌ Error: Falla al iniciar la VM ${VM_NAME}. Abortando."
   exit 1
 fi
