@@ -22,6 +22,28 @@
 #define SYSFS_CLASS "/sys/class/hwbusc/hwbusc/dev"
 #define EXPECTED_MAJOR 240
 
+static void test_node_presence(void)
+{
+  struct stat st;
+
+  if (stat(DEV_PATH, &st) != 0)
+  {
+    tst_res(TFAIL | TERRNO, "Device node %s does not exist", DEV_PATH);
+    return;
+  }
+
+  if (!S_ISCHR(st.st_mode))
+  {
+    tst_res(TFAIL, "%s is not a character device", DEV_PATH);
+    return;
+  }
+  tst_res(TPASS, "Device node %s exists and is a character device", DEV_PATH);
+}
+
+static void run_tests(void)
+{
+  test_node_presence();
+}
 
 static struct tst_test test = {
     .test_all = run_tests,
