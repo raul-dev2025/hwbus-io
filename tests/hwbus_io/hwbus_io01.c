@@ -40,9 +40,46 @@ static void test_node_presence(void)
   tst_res(TPASS, "Device node %s exists and is a character device", DEV_PATH);
 }
 
+static void test_proc_devices(void)
+{
+  FILE *fp;
+  char line[256];
+  int found = 0;
+  int major;
+  char name[64];
+
+  fp = fopen(PROC_DEV_PATH, "r");
+  if (!fp)
+  {
+    tst_brk(TBROK | TERRNO, "Failed to open %s", PROC_DEV_PATH);
+    return;
+  }
+  while (fgets(line, sizeof(line), fp))
+  {
+    if (sscanf(line, "%d %63s", &major, name) == 2)
+    {
+      if (major == EXPECTED_MAJOR && strcmp(name, "hwbusc") == 0)
+      {
+        found = 1;
+        break;
+      }
+    }
+  }
+  fclose(fp);
+  if (found)
+  {
+    tst_res(TPASS, "Major %d (hwbusc) registered in %s", EXPECTED_MAJOR, PROC_DEV_PATH);
+  }
+  else
+  {
+    tst_res(TFAIL | TERRNO, "Major %d (hwbusc) NOT found in %s", EXPECTED_MAJOR, PROC_DEV_PATH);
+  }
+}
+
 static void run_tests(void)
 {
   test_node_presence();
+  test_proc_devices();
 }
 
 static struct tst_test test = {
