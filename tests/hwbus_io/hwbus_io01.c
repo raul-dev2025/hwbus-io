@@ -76,10 +76,23 @@ static void test_proc_devices(void)
   }
 }
 
+static void test_sysfs_class(void)
+{
+  if (access(SYSFS_CLASS, F_OK) == 0)
+  {
+    tst_res(TPASS, "SysFS class node %s is present", SYSFS_CLASS);
+  }
+  else
+  {
+    tst_res(TFAIL | TERRNO, "SysFS class node %s missing", SYSFS_CLASS);
+  }
+}
+
 static void run_tests(void)
 {
   test_node_presence();
   test_proc_devices();
+  test_sysfs_class();
 }
 
 static struct tst_test test = {
