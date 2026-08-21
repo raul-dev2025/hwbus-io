@@ -4,16 +4,19 @@
 # Makefile - Build instructions for hwbus-io
 #
 
-
-
-.PHONY: test clean
+.PHONY: all test clean
 
 # Subdirectorio activo configurado en el propio Makefile
-SUBDIR ?= IO_tests
-TARGET ?= mmap01
+SUBDIR ?= hwbus_io
+TARGET ?= hwbus_io01
 
+# Compila el test configurado
 test:
 	$(MAKE) -C $(SUBDIR) $(TARGET)
 
+# Compila toda la bateria de tests
+all:
+	$(MAKE) -C $(SUBDIR) all
+
 clean:
-	$(MAKE) -C IO_tests clean
+	$(MAKE) -C $(SUBDIR) clean
