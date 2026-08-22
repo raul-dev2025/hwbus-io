@@ -23,6 +23,7 @@ source "${MANIFEST_FILE}"
 
 # 3. Preparar directorio local y seleccionar log según TARGET_TYPE
 mkdir -p "${LOG_DIR}"
+rm -f "${KO_LOG}" "${LTP_LOG}"
 
 if [ "${TARGET_TYPE}" = "KO" ]; then
     RUN_LOG="${KO_LOG}"
