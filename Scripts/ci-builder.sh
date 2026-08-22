@@ -87,9 +87,8 @@ fi
 # 5. LIBERACIÓN DE RECURSO
 # =========================
 
-echo "=============================================="
 echo "🛑 Liberando infraestructura de compilación..."
-echo "=============================================="
+echo "build(ci): select target type TARGET for pipeline run"
 
 STOP_OUTPUT=$(Scripts/Envs/vm-stop.sh buildlab)
 echo "${STOP_OUTPUT}"
