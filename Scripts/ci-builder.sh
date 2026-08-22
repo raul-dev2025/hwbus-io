@@ -17,8 +17,17 @@ BINARY_NAME="hwbus_io"
 LOCAL_LOG_DIR="/mnt/datos_raul/Logs/Buildlab/hwbus-io"
 REMOTE_LOG_DIR="/var/log/BuilderLogs/hwbus-io"
 
-LOCAL_BUILD_LOG="${LOCAL_LOG_DIR}/build_latest.log"
-REMOTE_BUILD_LOG="${REMOTE_LOG_DIR}/build_latest.log"
+# Definición dinámica según el target activo
+if [ "${BUILD_TYPE}" = "KO" ]; then
+    LOG_NAME="build_ko_latest.log"
+elif [ "${BUILD_TYPE}" = "LTP" ]; then
+    LOG_NAME="build_ltp_latest.log"
+else
+    LOG_NAME="build_latest.log"
+fi
+
+LOCAL_BUILD_LOG="${LOCAL_LOG_DIR}/${LOG_NAME}"
+REMOTE_BUILD_LOG="${REMOTE_LOG_DIR}/${LOG_NAME}"
 
 
 # =============================
