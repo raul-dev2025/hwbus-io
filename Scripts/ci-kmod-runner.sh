@@ -36,3 +36,10 @@ cleanup() {
     fi
 }
 trap cleanup EXIT
+
+
+# 4. Desinstalación previa por seguridad
+if lsmod | grep -q "^${MODULE_NAME} "; then
+    echo "🧹 Desinstalando instancia previa de ${MODULE_NAME}..."
+    sudo rmmod "${MODULE_NAME}"
+fi
