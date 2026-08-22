@@ -48,12 +48,19 @@ echo "ℹ️ Target detectado: [${TARGET_TYPE:-DESCONOCIDO}]"
 mkdir -p "${LOCAL_LOG_DIR}"
 rm -f "${LOCAL_RUN_LOG}"
 
-# 4. Invocación SSH con captura de salida y evaluación de retorno
-EXEC_STATUS=0
-if ssh "${SANDBOX_HOST}" "${REMOTE_SCRIPTS}/ci-runner.sh"; then
-    echo "✅ TEST RUNNER SUCCESSFUL"
+
+# 4. Definición del Runner por RUNNER_TYPE
+if [ "${RUNNER_TYPE}" = "KMOD_TEST" ]; then
+  RUNNER_SCRIPT="ci-kmod-runner.sh"
 else
-    echo "❌ TEST RUNNER FAILED"
+  RUNNER_SCRIPT="ci-runner.sh"
+fi
+
+# 5. Invocación SSH con captura de salida y evaluación de retorno
+if ssh "${SANDBOX_HOST}" "${REMOTE_SCRIPTS}/${RUNNER_SCRIPT}"; then
+    echo "✅ TEST RUNNER SUCCESSFUL [${RUNNER_SCRIPT}]"
+else
+    echo "❌ TEST RUNNER FAILED [${RUNNER_SCRIPT}]"
     EXEC_STATUS=1
 fi
 
