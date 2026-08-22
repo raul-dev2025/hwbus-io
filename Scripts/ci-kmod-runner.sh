@@ -23,3 +23,16 @@ source "${MANIFEST_FILE}"
 
 mkdir -p "${LOG_DIR}"
 rm -f "${RUN_LOG}"
+
+echo "=============================================="
+echo "🧪 Ejecutando Test LTP sobre Módulo Kernel..."
+echo "=============================================="
+
+# Funció de limpieza para garantizar rmmod al salir
+cleanup() {
+    if lsmod | grep -q "^${MODULE_NAME} "; then
+        echo "🧹 Descargando módulo kernel: ${MODULE_NAME}..."
+        sudo rmmod "${MODULE_NAME}" || true
+    fi
+}
+trap cleanup EXIT
