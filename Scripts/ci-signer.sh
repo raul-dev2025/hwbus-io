@@ -27,22 +27,18 @@ if [ "${BUILD_TYPE}" = "KO" ]; then
 
     MODULE_NAME=$(basename "${MODULE_KO}" .ko)
 
-    # 2. Firmar el módulo
+    # 2. Firmar el módulo de forma estricta
     echo "🔑 Firmando el módulo ${MODULE_KO}..."
-    sudo kmod-sign-file sha256 "${PRIV_KEY}" "${DER_CERT}" "${MODULE_KO}"
+    if ! sudo kmod-sign-file sha256 "${PRIV_KEY}" "${DER_CERT}" "${MODULE_KO}"; then
+        echo "❌ Error: El módulo ${MODULE_NAME} no ha podido ser firmado. Omitiendo manifiesto..."
+        exit 1
+    fi
 
-    # 3. Registrar estado para el sandbox
-    cat <<EOF > "${MANIFEST_FILE}"
-BUILD_STATUS="SUCCESS"
-TARGET_TYPE="KO"
-MODULE_NAME="${MODULE_NAME}"
-MODULE_KO_PATH="${MODULE_KO}"
-TIMESTAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-EOF
+    # 3. Delegar la generación del manifiesto tras la firma exitosa
+    generate_ko_manifest "${MANIFEST_FILE}" "${MODULE_NAME}" "${MODULE_KO}"
 
 elif [ "${BUILD_TYPE}" = "LTP" ]; then
     # 1. Localizar el ejecutable en tests/
-    # Opción A: Búsqueda dinámica de binario ejecutable (excluyendo scripts/ makefiles)
     TEST_BIN=$(find "${REPO_DIR}/tests" -type f -executable ! -name "*.sh" ! -name "Makefile*" | head -n 1)
 
     if [ -z "${TEST_BIN}" ] || [ ! -x "${TEST_BIN}" ]; then
