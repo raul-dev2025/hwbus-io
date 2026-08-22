@@ -43,3 +43,7 @@ if lsmod | grep -q "^${MODULE_NAME} "; then
     echo "🧹 Desinstalando instancia previa de ${MODULE_NAME}..."
     sudo rmmod "${MODULE_NAME}"
 fi
+
+# 5. Carga del módulo
+echo "🚀 Cargando módulo kernel: ${MODULE_NAME}..."
+sudo insmod "${MODULE_KO_PATH}"
