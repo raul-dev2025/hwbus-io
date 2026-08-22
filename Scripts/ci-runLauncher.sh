@@ -31,6 +31,8 @@ fi
 
 # 2. Consultar el manifiesto para determinar el log KO/LTP
 TARGET_TYPE=$(ssh "${SANDBOX_HOST}" "grep '^TARGET_TYPE=' '${MANIFEST_FILE}' | cut -d'=' -f2 | tr -d '\"'")
+RUNNER_TYPE=$(ssh "${SANDBOX_HOST}" "grep '^RUNNER_TYPE=' '${MANIFEST_FILE}' | cut -d'=' -f2 | tr -d '\"'")
+
 if [ "${TARGET_TYPE}" = "LTP" ]; then
   LOG_FILENAME="ltp_latest.log"
 elif [ "${TARGET_TYPE}" = "KO" ]; then
