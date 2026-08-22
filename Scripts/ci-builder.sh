@@ -62,15 +62,15 @@ else
     exit 1
 fi
 
-echo "=============================================="
-echo "🔏 Generando manifiesto y firma(si es .KO)..."
-echo "=============================================="
+echo "====================================================="
+echo "📝 Procesando entrega e inspección [${BUILD_TYPE}]..."
+echo "====================================================="
 
-# 4. Transición a la fase de firma/manifiesto
+# 4. Transición a la fase de post-procesado (firma e inspección)
 if ssh "${REMOTE_HOST}" "${REMOTE_ROOT}/Scripts/ci-signer.sh ${BUILD_TYPE}"; then
-    echo "✅ MANIFIESTO Y ESTADO REGISTRADOS CORRECTAMENTE"
+    echo "✅ ENTREGA PROCESADA Y MANIFIESTO REGISTRADO CORRECTAMENTE"
 else
-    echo "❌ ERROR EN FASE DE FIRMA / MANIFIESTO"
+    echo "❌ ERROR EN PROCESADO DE ENTREGA / FIRMA"
     exit 1
 fi
 
