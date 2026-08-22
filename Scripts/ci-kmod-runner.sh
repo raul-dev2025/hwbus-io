@@ -24,6 +24,17 @@ source "${MANIFEST_FILE}"
 mkdir -p "${LOG_DIR}"
 rm -f "${RUN_LOG}"
 
+# 3. Validar existencia de artefactos
+if [ ! -f "${MODULE_KO_PATH}" ]; then
+    echo "❌ Error: El módulo kernel no existe en ${MODULE_KO_PATH}"
+    exit 1
+fi
+
+if [ ! -x "${TEST_BINARY_PATH}" ]; then
+    echo "❌ Error: El binario LTP no existe o no es ejecutable: ${TEST_BINARY_PATH}"
+    exit 1
+fi
+
 echo "=============================================="
 echo "🧪 Ejecutando Test LTP sobre Módulo Kernel..."
 echo "=============================================="
