@@ -48,18 +48,26 @@ elif [ "${BUILD_TYPE}" = "LTP" ]; then
 
     TEST_NAME=$(basename "${TEST_BIN}")
 
-    # 2. Registrar estado para el sandbox (sin firma)
-    cat <<EOF > "${MANIFEST_FILE}"
-BUILD_STATUS="SUCCESS"
-TARGET_TYPE="LTP"
-TEST_BINARY_NAME="${TEST_NAME}"
-TEST_BINARY_PATH="${TEST_BIN}"
-TIMESTAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-EOF
+    # 2. Determinar el perfil de runner e inspección de dependencias
+    if echo "${TEST_BIN}" | grep -q "/tests/hwbus_io/"; then
+        RUNNER_TYPE="KMOD_TEST"
+        MODULE_KO=$(find "${REPO_DIR}/src" -type f -name "*.ko" | head -n 1)
+
+        if [ -z "${MODULE_KO}" ] || [ ! -f "${MODULE_KO}" ]; then
+            echo "❌ Error: El test ${TEST_NAME} requiere un módulo .ko, pero no se encontró en ${REPO_DIR}/src/"
+            exit 1
+        fi
+        MODULE_NAME=$(basename "${MODULE_KO}" .ko)
+    else
+        RUNNER_TYPE="GENERIC"
+        MODULE_NAME=""
+        MODULE_KO=""
+    fi
+
+    # 3. Delegar la generación del manifiesto tras la inspección exitosa
+    generate_ltp_manifest "${MANIFEST_FILE}" "${RUNNER_TYPE}" "${TEST_NAME}" "${TEST_BIN}" "${MODULE_NAME}" "${MODULE_KO}"
 
 else
     echo "❌ Error: BUILD_TYPE desconocido [${BUILD_TYPE}]."
     exit 1
 fi
-
-echo "✅ Manifiesto generado en: ${MANIFEST_FILE}"
