@@ -47,7 +47,7 @@ if [ "${BUILD_TYPE}" = "KO" ]; then
     MAKE_CMD="make -C ${REMOTE_ROOT} clean && make -C ${REMOTE_ROOT} module"    
 elif [ "${BUILD_TYPE}" = "LTP" ]; then
     echo "🧹 Compilando Test LTP: ${BINARY_NAME}..."
-    MAKE_CMD="make -C ${REMOTE_ROOT} clean && make -C ${REMOTE_ROOT} test"
+    MAKE_CMD="make -C ${REMOTE_ROOT}/tests clean && make -C ${REMOTE_ROOT} test"
 else
     echo "❌ Error: BUILD_TYPE no reconocido [${BUILD_TYPE}]. Use 'KO' o 'LTP'."
     exit 1
@@ -63,7 +63,7 @@ else
 fi
 
 echo "====================================================="
-echo "📝 Procesando entrega e inspección [${BUILD_TYPE}]..."
+echo "🔏 Procesando entrega e inspección [${BUILD_TYPE}]..."
 echo "====================================================="
 
 # 4. Transición a la fase de post-procesado (firma e inspección)
