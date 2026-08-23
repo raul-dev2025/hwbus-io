@@ -56,9 +56,9 @@ if lsmod | grep -q "^${MODULE_NAME} "; then
 fi
 
 # 5. Carga del módulo
-echo "🚀 Cargando módulo kernel: ${MODULE_NAME}..."
+echo "🆙 Cargando módulo kernel: ${MODULE_NAME}..."
 sudo insmod "${MODULE_KO_PATH}"
 
 # 6. Ejecución de la prueba LTP
 echo "🚀 Ejecutando test LTP: ${TEST_BINARY_NAME}..."
-"${TEST_BINARY_PATH}" > "${RUN_LOG}" || true
+"${TEST_BINARY_PATH}" 2> "${RUN_LOG}" || true
