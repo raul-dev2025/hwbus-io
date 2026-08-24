@@ -26,6 +26,29 @@
 #define SYSFS_VENDOR_PATH "/sys/bus/pci/devices/0000:02:00.0/vendor"
 #define SYSFS_DEVICE_PATH "/sys/bus/pci/devices/0000:02:00.0/device"
 
+static uint16_t read_sysfs_hex16(const char *path)
+{
+  FILE *fp;
+  uint16_t val = 0;
+
+  fp = fopen(path, "r");
+  if (!fp)
+  {
+    tst_brk(TBROK | TERRNO, "Failed to open %s", path);
+    return 0;
+  }
+
+  if (fscanf(fp, "0x%" SCNx16, &val) != 1)
+  {
+    fclose(fp);
+    tst_brk(TBROK, "Failed to parse hex value from %s", path);
+    return 0;
+  }
+
+  fclose(fp);
+  return val;
+}
+
 static struct tst_test test = {
     .test_all = run_tests,
 };
