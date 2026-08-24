@@ -112,7 +112,23 @@ static void test_partial_read(void)
   ret = read(fd, buf, sizeof(buf));
   close(fd);
 
+  if (ret != 2)
+  {
+    tst_res(TFAIL, "Partial read returned %zd bytes, expected 2", ret);
+    return;
+  }
 
+  actual_vendor = (uint16_t)buf[0] | ((uint16_t)buf[1] << 8);
+
+  if (actual_vendor == expected_vendor)
+  {
+    tst_res(TPASS, "Partial read (2 bytes) returned correct VendorID: 0x%04x", actual_vendor);
+  }
+  else
+  {
+    tst_res(TFAIL, "Partial read VendorID mismatch: got 0x%04x, expected 0x%04x",
+            actual_vendor, expected_vendor);
+  }
 }
 
 
