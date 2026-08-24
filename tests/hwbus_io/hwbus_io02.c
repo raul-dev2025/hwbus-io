@@ -103,6 +103,11 @@ static void test_partial_read(void)
   expected_vendor = read_sysfs_hex16(SYSFS_VENDOR_PATH);
 
   fd = open(DEV_PATH, O_RDONLY);
+  if (fd < 0)
+  {
+    tst_brk(TBROK | TERRNO, "Failed to open %s", DEV_PATH);
+    return;
+  }
 
   ret = read(fd, buf, sizeof(buf));
   close(fd);
