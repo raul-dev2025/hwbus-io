@@ -70,7 +70,14 @@ static void test_exact_pci_ids(void)
   ret = read(fd, buf, sizeof(buf));
   close(fd);
 
+  if (ret != 4)
+  {
+    tst_res(TFAIL, "Exact read returned %ssize %zd, expected 4", DEV_PATH, ret);
+    return;
+  }
+
 }
+
 
 static struct tst_test test = {
     .test_all = run_tests,
