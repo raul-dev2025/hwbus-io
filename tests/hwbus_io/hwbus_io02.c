@@ -49,6 +49,24 @@ static uint16_t read_sysfs_hex16(const char *path)
   return val;
 }
 
+static void test_exact_pci_ids(void)
+{
+  int fd;
+  uint16_t expected_vendor, expected_device;
+  uint8_t buf[4];
+  ssize_t ret;
+  uint16_t actual_vendor, actual_device;
+
+  expected_vendor = read_sysfs_hex16(SYSFS_VENDOR_PATH);
+  expected_device = read_sysfs_hex16(SYSFS_DEVICE_PATH);
+
+  fd = open(DEV_PATH, O_RDONLY);
+
+  ret = read(fd, buf, sizeof(buf));
+  close(fd);
+
+}
+
 static struct tst_test test = {
     .test_all = run_tests,
 };
