@@ -61,6 +61,11 @@ static void test_exact_pci_ids(void)
   expected_device = read_sysfs_hex16(SYSFS_DEVICE_PATH);
 
   fd = open(DEV_PATH, O_RDONLY);
+  if (fd < 0)
+  {
+    tst_brk(TBROK | TERRNO, "Failed to open %s", DEV_PATH);
+    return;
+  }
 
   ret = read(fd, buf, sizeof(buf));
   close(fd);
