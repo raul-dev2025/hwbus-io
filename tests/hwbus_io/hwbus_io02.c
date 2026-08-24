@@ -131,6 +131,16 @@ static void test_partial_read(void)
   }
 }
 
+static void test_overflow_and_eof(void)
+{
+}
+
+static void run_tests(void)
+{
+  test_exact_pci_ids();
+  test_partial_read();
+  test_overflow_and_eof();
+}
 
 static struct tst_test test = {
     .test_all = run_tests,
