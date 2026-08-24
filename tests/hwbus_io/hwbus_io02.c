@@ -92,6 +92,24 @@ static void test_exact_pci_ids(void)
   }
 }
 
+static void test_partial_read(void)
+{
+  int fd;
+  uint16_t expected_vendor;
+  uint8_t buf[2];
+  ssize_t ret;
+  uint16_t actual_vendor;
+
+  expected_vendor = read_sysfs_hex16(SYSFS_VENDOR_PATH);
+
+  fd = open(DEV_PATH, O_RDONLY);
+
+  ret = read(fd, buf, sizeof(buf));
+  close(fd);
+
+
+}
+
 
 static struct tst_test test = {
     .test_all = run_tests,
