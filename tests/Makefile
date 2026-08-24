@@ -7,7 +7,7 @@ SUBDIRS := hwbus_io IO_tests BUS_tests PROC_tests
 
 # Subdirectorio activo configurado en el propio Makefile
 SUBDIR ?= hwbus_io
-TARGET ?= hwbus_io01
+TARGET ?= hwbus_io02
 
 .PHONY: all test clean $(SUBDIRS)
 
