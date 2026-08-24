@@ -146,6 +146,12 @@ static void test_overflow_and_eof(void)
 
   /* First read requesting 64 bytes - should truncate to 4 bytes */
   ret = read(fd, buf, sizeof(buf));
+  if (ret != 4)
+  {
+    tst_res(TFAIL, "Buffer overflow request returned %zd bytes, expected truncation to 4", ret);
+    close(fd);
+    return;
+  }
 
   /* Second consecutive read - should return 0 (EOF) due to f_pos advancement */
   ret = read(fd, buf, sizeof(buf));
