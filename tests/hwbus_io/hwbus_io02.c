@@ -76,6 +76,20 @@ static void test_exact_pci_ids(void)
     return;
   }
 
+  /* Little-endian decoding: bytes 0-1 (VendorID), bytes 2-3 (DeviceID) */
+  actual_vendor = (uint16_t)buf[0] | ((uint16_t)buf[1] << 8);
+  actual_device = (uint16_t)buf[2] | ((uint16_t)buf[3] << 8);
+
+  if (actual_vendor == expected_vendor && actual_device == expected_device)
+  {
+    tst_res(TPASS, "Read exact PCI IDs match SysFS (VendorID: 0x%04x, DeviceID: 0x%04x)",
+            actual_vendor, actual_device);
+  }
+  else
+  {
+    tst_res(TFAIL, "PCI IDs mismatch: got VendorID=0x%04x DeviceID=0x%04x, expected VendorID=0x%04x DeviceID=0x%04x",
+            actual_vendor, actual_device, expected_vendor, expected_device);
+  }
 }
 
 
