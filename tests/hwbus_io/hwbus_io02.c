@@ -138,6 +138,11 @@ static void test_overflow_and_eof(void)
   ssize_t ret;
 
   fd = open(DEV_PATH, O_RDONLY);
+  if (fd < 0)
+  {
+    tst_brk(TBROK | TERRNO, "Failed to open %s", DEV_PATH);
+    return;
+  }
 
   /* First read requesting 64 bytes - should truncate to 4 bytes */
   ret = read(fd, buf, sizeof(buf));
