@@ -157,6 +157,14 @@ static void test_overflow_and_eof(void)
   ret = read(fd, buf, sizeof(buf));
   close(fd);
 
+  if (ret == 0)
+  {
+    tst_res(TPASS, "Read with overflow correctly truncated to 4 bytes and subsequent read returned EOF (0)");
+  }
+  else
+  {
+    tst_res(TFAIL, "Subsequent read after EOF returned %zd bytes, expected 0", ret);
+  }
 }
 
 static void run_tests(void)
