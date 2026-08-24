@@ -133,6 +133,15 @@ static void test_partial_read(void)
 
 static void test_overflow_and_eof(void)
 {
+  fd = open(DEV_PATH, O_RDONLY);
+
+  /* First read requesting 64 bytes - should truncate to 4 bytes */
+  ret = read(fd, buf, sizeof(buf));
+
+  /* Second consecutive read - should return 0 (EOF) due to f_pos advancement */
+  ret = read(fd, buf, sizeof(buf));
+  close(fd);
+
 }
 
 static void run_tests(void)
