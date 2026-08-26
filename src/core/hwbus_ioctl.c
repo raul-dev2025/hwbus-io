@@ -5,6 +5,7 @@
  * Copyright (C) 2026 Raúl Vílchez Ruiz <raulmicrosistemas@gmail.com>
  */
 #include <hwbus-io.h>
+#include <hwbus_param.h>
 
 static bool is_valid_hwbus_cmd(unsigned int cmd)
 {
