@@ -41,6 +41,14 @@ long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg
       return -EFAULT;
     break;
   }
+  case 4:
+  {
+    u32 val32;
+    ret = pci_read_config_dword(pdev, offset, &val32);
+    if (ret)
+      return ret;
+    if (put_user(val32, (u32 __user *)arg))
+      return -EFAULT;
     break;
   }
   default:
