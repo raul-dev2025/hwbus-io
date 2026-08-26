@@ -15,6 +15,9 @@
 #define HWBUS_MAJOR 0
 #define HWBUS_DEVS 1
 
+/* Espacio de configuracion PCI Mode 1*/
+#define HWBUS_CFG_SIZE 256
+
 /**
  * struct hwbus_dev - Estructura principal de contexto del driver hwbus-io
  * @dev_id: Identificador único interno
