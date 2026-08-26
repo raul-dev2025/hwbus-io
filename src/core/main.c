@@ -5,7 +5,7 @@
  * Copyright (C) 2026 Raúl Vílchez Ruiz <raulmicrosistemas@gmail.com>
  */
 #include <linux/cdev.h>
-#include <linux/device.h>
+
 #include <linux/fs.h>
 #include <linux/init.h>
 #include <linux/kernel.h>
@@ -51,6 +51,8 @@ struct file_operations hwbus_fops = {
     .open = hwbus_open,
     .release = hwbus_release,
     .read = hwbus_pci_config_read,
+    .llseek = hwbus_llseek,
+    .unlocked_ioctl = hwbus_unlocked_ioctl,
 };
 
 static int __init hwbus_init(void)
