@@ -6,6 +6,18 @@
  */
 #include <hwbus-io.h>
 
+static bool is_valid_hwbus_cmd(unsigned int cmd)
+{
+  u8 offset = _IOC_NR(cmd);
+  u8 size = _IOC_SIZE(cmd);
+  /*RO, numero mágico, 64B limite, alineación natural*/
+  return (_IOC_TYPE(cmd) == HWBUS_IOC_MAGIC) &&
+         (_IOC_DIR(cmd) == _IOC_READ) &&
+         (offset <= 0x3c) &&
+         (size == 1 || size == 2 || size == 4) &&
+         (offset % size == 0);
+}
+
 long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 {
   struct pci_dev *pdev = hwbus_get_pci_dev_from_param();
