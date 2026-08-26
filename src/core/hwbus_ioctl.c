@@ -23,6 +23,14 @@ long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg
   {
   case 1:
   {
+    u8 val8;
+    ret = pci_read_config_byte(pdev, offset, &val8);
+    if (ret)
+      return ret;
+    if (put_user(val8, (u8 __user *)arg))
+      return -EFAULT;
+    break;
+  }
     break;
   }
   default:
