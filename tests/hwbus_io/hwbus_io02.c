@@ -27,6 +27,7 @@
 
 static int fd = -1;
 
+void read_config_ref(uint8_t offset, void *out_val, size_t size);
 
 static void setup() {}
 static void cleanup() {}
