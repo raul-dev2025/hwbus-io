@@ -47,6 +47,9 @@ void read_config_ref(uint16_t offset, void *out_val, size_t size)
   /* Limpieza de buffer de salida */
   memset(out_val, 0, size);
 
+  /* Apertura del archivo en sysfs */
+  sysfs_fd = SAFE_OPEN(sysfs_path, O_RDONLY);
+
 }
 
 static void setup() {}
