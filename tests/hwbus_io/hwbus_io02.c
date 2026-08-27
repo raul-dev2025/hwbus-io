@@ -44,6 +44,9 @@ void read_config_ref(uint16_t offset, void *out_val, size_t size)
     tst_brk(TBROK, "El offset 0x%x + tamaño %zu excede el límite de 4096 bytes.", offset, size);
   }
 
+  /* Limpieza de buffer de salida */
+  memset(out_val, 0, size);
+
 }
 
 static void setup() {}
