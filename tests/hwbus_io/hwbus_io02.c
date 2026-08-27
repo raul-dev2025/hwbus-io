@@ -22,8 +22,8 @@
 #include "tst_test.h"
 #include <user/hwbus_io_uapi.h>
 
-#define dev_path "dev/hwbusc"
-#define sysfs_pci_path "/sys/bus/pci/devices/0000:02:00.0/"
+#define DEV_PATH "dev/hwbusc"
+#define SYSFS_PCI_PATH "/sys/bus/pci/devices/0000:02:00.0/"
 
 static int fd = -1;
 
@@ -31,7 +31,7 @@ void read_config_ref(uint16_t offset, void *out_val, size_t size)
 {
   int sysfs_fd;
   ssize_t bytes_read;
-  const char *sysfs_path = sysfs_pci_path;
+  const char *sysfs_path = SYSFS_PCI_PATH;
 
   /* Validar parametros de entrada */
   if (size != 1 && size != 2 && size != 4)
