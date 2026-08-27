@@ -33,6 +33,17 @@ void read_config_ref(uint16_t offset, void *out_val, size_t size)
   ssize_t bytes_read;
   const char *sysfs_path = sysfs_pci_path;
 
+  /* Validar parametros de entrada */
+  if (size != 1 && size != 2 && size != 4)
+  {
+    tst_brk(TBROK, "Tamaño de lectura no válido (%zu bytes). Debe ser 1, 2 o 4.", size);
+  }
+
+  if ((offset + size) > 4096)
+  {
+    tst_brk(TBROK, "El offset 0x%x + tamaño %zu excede el límite de 4096 bytes.", offset, size);
+  }
+
 }
 
 static void setup() {}
