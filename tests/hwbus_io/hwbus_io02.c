@@ -75,6 +75,11 @@ static void setup(void)
   fd = SAFE_OPEN(DEV_PATH, O_RDWR);
 }
 
+static void cleanup(void)
+{
+  if (fd >= 0)
+    SAFE_CLOSE(fd);
+}
 
 static void run_tests(void) {}
 static struct tst_test test = {
