@@ -70,8 +70,11 @@ void read_config_ref(uint16_t offset, void *out_val, size_t size)
   SAFE_CLOSE(sysfs_fd);
 }
 
-static void setup() {}
-static void cleanup() {}
+static void setup(void)
+{
+  fd = SAFE_OPEN(DEV_PATH, O_RDWR);
+}
+
 
 static void run_tests(void) {}
 static struct tst_test test = {
