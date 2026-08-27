@@ -27,7 +27,13 @@
 
 static int fd = -1;
 
-void read_config_ref(uint8_t offset, void *out_val, size_t size);
+void read_config_ref(uint16_t offset, void *out_val, size_t size)
+{
+  int sysfs_fd;
+  ssize_t bytes_read;
+  const char *sysfs_path = sysfs_pci_path;
+
+}
 
 static void setup() {}
 static void cleanup() {}
