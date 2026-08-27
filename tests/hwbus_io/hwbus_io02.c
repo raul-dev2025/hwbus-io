@@ -50,6 +50,13 @@ void read_config_ref(uint16_t offset, void *out_val, size_t size)
   /* Apertura del archivo en sysfs */
   sysfs_fd = SAFE_OPEN(sysfs_path, O_RDONLY);
 
+  /* Posicionamiento del puntero en el offset */
+  if (lseek(sysfs_fd, offset, SEEK_SET) == (off_t)-1)
+  {
+    SAFE_CLOSE(sysfs_fd);
+    tst_brk(TBROK | TERRNO, "Error en lseek sobre %s en offset 0x%x", sysfs_path, offset);
+  }
+
 }
 
 static void setup() {}
