@@ -57,6 +57,15 @@ void read_config_ref(uint16_t offset, void *out_val, size_t size)
     tst_brk(TBROK | TERRNO, "Error en lseek sobre %s en offset 0x%x", sysfs_path, offset);
   }
 
+  /* Lectura y verificacion */
+  bytes_read = read(sysfs_fd, out_val, size);
+  if (bytes_read != (ssize_t)size)
+  {
+    SAFE_CLOSE(sysfs_fd);
+    tst_brk(TBROK | TERRNO, "Lectura incompleta en SysFS. Esperados %zu bytes, leídos %zd",
+            size, bytes_read);
+  }
+
 }
 
 static void setup() {}
