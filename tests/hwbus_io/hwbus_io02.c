@@ -66,6 +66,8 @@ void read_config_ref(uint16_t offset, void *out_val, size_t size)
             size, bytes_read);
   }
 
+  /* Cierre del descriptor */
+  SAFE_CLOSE(sysfs_fd);
 }
 
 static void setup() {}
