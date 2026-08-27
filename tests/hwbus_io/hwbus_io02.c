@@ -70,6 +70,10 @@ void read_config_ref(uint16_t offset, void *out_val, size_t size)
   SAFE_CLOSE(sysfs_fd);
 }
 
+static void test_ioctl_dedicated(void);
+static void test_data_width(void);
+static void test_ioctl_invalid(void);
+
 static void setup(void)
 {
   fd = SAFE_OPEN(DEV_PATH, O_RDWR);
