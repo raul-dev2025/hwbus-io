@@ -71,7 +71,15 @@ void read_config_ref(uint16_t offset, void *out_val, size_t size)
 }
 
 static void test_ioctl_dedicated(void);
-static void test_data_width(void);
+
+static void test_data_width(unsigned long cmd, uint16_t offset, size_t size, const char *reg_name)
+{
+  uint32_t val_ioctl = 0;
+  uint32_t val_ref = 0;
+  uint32_t mask;
+  int ret;
+}
+
 static void test_ioctl_invalid(void);
 
 static void setup(void)
