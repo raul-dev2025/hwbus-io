@@ -78,6 +78,28 @@ static void test_data_width(unsigned long cmd, uint16_t offset, size_t size, con
   uint32_t val_ref = 0;
   uint32_t mask;
   int ret;
+
+  /* Definicion de mascara segun tamaño */
+  switch (size)
+  {
+  case 1:
+    mask = 0x000000FF;
+    break;
+  case 2:
+    mask = 0X0000FFFF;
+    break;
+  case 4:
+    mask = 0XFFFFFFFF;
+    break;
+  default:
+    tst_brk(TBROK, "Tamaño no soportado (%zu) en test_ioctl_by_width para %s", size, reg_name);
+    return;
+  }
+
+  /* Enmascaramiento para limpiar bits no utilizados */
+  val_ioctl &= mask;
+  val_ref &= mask;
+
 }
 
 static void test_ioctl_invalid(void);
