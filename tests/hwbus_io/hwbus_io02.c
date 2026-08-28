@@ -10,6 +10,7 @@
  * 3. Buffer overflow request (64 bytes) truncated to 4 bytes, and subsequent
  *    EOF (0 bytes read) due to f_pos displacement.
  */
+#include <errno.h>
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -153,6 +154,13 @@ static void test_ioctl_invalid()
   else
     tst_res(TFAIL, "ioctl() fallo al validar comando invalido (ret=%d, errno=%d, esperado ENOTTY)", ret, errno);
 
+  /* 2. IOCTL valida pero pasando un puntero NULL */
+  ret = ioctl(fd, HWBUS_IOC_READ_STATUS, NULL);
+
+  if (ret == -1 && errno == EFAULT)
+    tst_res(TPASS, "ioctl() rechazo puntero NULL con EFAULT correctamente");
+  else
+    tst_res(TFAIL, "ioctl() fallo al validar puntero NULL (ret=%d, errno=%d, esperado EFAULT)", ret, errno);
 }
 
 static void setup(void)
