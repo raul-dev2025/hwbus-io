@@ -137,6 +137,12 @@ static void test_ioctl_dedicated(void)
   test_data_width(HWBUS_IOC_READ_BAR0, "PCI_BASE_ADDRESS_0");
 }
 
+static void test_ioctl_invalid()
+{
+  uint32_t val;
+  int ret;
+
+}
 
 static void setup(void)
 {
