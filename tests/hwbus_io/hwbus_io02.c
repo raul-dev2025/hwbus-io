@@ -114,7 +114,7 @@ static void test_data_width(unsigned long cmd, uint16_t offset, size_t size, con
   /* Comparacion y reporte a LTP */
   if (val_ioctl == val_ref)
   {
-    tst_res(TPASS, "egistro %s (offset 0x%02x, %zu bytes): ioctl [0x%0*x] == sysfs [0x%0*x]", reg_name, offset, size, (int)(size * 2), val_ioctl, (int)(size * 2), val_ref);
+    tst_res(TPASS, "Registro %s (offset 0x%02x, %zu bytes): ioctl [0x%0*x] == sysfs [0x%0*x]", reg_name, offset, size, (int)(size * 2), val_ioctl, (int)(size * 2), val_ref);
   }
   else
   {
