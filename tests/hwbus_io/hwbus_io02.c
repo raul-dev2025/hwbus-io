@@ -24,7 +24,7 @@
 #include "tst_test.h"
 #include <user/hwbus_io_uapi.h>
 
-#define DEV_PATH "dev/hwbusc"
+#define DEV_PATH "/dev/hwbusc"
 #define SYSFS_PCI_PATH "/sys/bus/pci/devices/0000:02:00.0/config"
 
 static int fd = -1;
