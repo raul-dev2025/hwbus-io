@@ -71,7 +71,17 @@ void read_config_ref(uint16_t offset, void *out_val, size_t size)
   SAFE_CLOSE(sysfs_fd);
 }
 
-static void test_ioctl_dedicated(void);
+static void test_ioctl_dedicated(void)
+{
+  /* Registros fijos */
+  test_data_width(HWBUS_IOC_READ_VENDOR, "PCI_VENDOR_IP");
+  test_data_width(HWBUS_IOC_READ_DEVICE, "PCI_DEVICE_IP");
+
+  /* Registros representativos */
+  test_data_width(HWBUS_IOC_READ_COMMAND, "PCI_COMMAND");
+  test_data_width(HWBUS_IOC_READ_REVISION, "PCI_REVISION_ip");
+  test_data_width(HWBUS_IOC_READ_BAR0, "PCI_BASE_ADDRESS_0");
+}
 
 static void test_data_width(unsigned long cmd, const char *reg_name)
 {
