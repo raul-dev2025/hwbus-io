@@ -79,6 +79,14 @@ static void test_data_width(unsigned long cmd, uint16_t offset, size_t size, con
   uint32_t mask;
   int ret;
 
+  /* LLamada IOCTL del controlador */
+  ret = ioctl(fd, cmd, &val_ioctl);
+  if (ret < 0)
+  {
+    tst_res(TFAIL | TERRNO, "Fallo en ioctl() para registro %s (cmd: 0x%lx)", reg_name, cmd);
+    return;
+  }
+
   /* Definicion de mascara segun tamaño */
   switch (size)
   {
