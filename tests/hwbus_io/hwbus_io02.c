@@ -174,7 +174,11 @@ static void cleanup(void)
     SAFE_CLOSE(fd);
 }
 
-static void run_tests(void) {}
+static void run_tests(void)
+{
+  test_ioctl_dedicated();
+  test_ioctl_invalid();
+}
 static struct tst_test test = {
     .setup = setup,
     .cleanup = cleanup,
