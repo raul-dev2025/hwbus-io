@@ -14,6 +14,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/ioctl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -23,7 +24,7 @@
 #include <user/hwbus_io_uapi.h>
 
 #define DEV_PATH "dev/hwbusc"
-#define SYSFS_PCI_PATH "/sys/bus/pci/devices/0000:02:00.0/"
+#define SYSFS_PCI_PATH "/sys/bus/pci/devices/0000:02:00.0/config"
 
 static int fd = -1;
 
