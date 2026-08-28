@@ -142,6 +142,17 @@ static void test_ioctl_invalid()
   uint32_t val;
   int ret;
 
+  /* 1. IOCTL con comando no reconocido */
+  /* Número de magico o comando que el driver no reconoce */
+  unsigned long cmd_invalid = _IOR('X', 0xFF, uint32_t);
+
+  ret = ioctl(fd, cmd_invalid, &val);
+
+  if (ret == -1 && errno == ENOTTY)
+    tst_res(TPASS, "ioctl() rechazo comando no reconocido con ENOTTY correctamente");
+  else
+    tst_res(TFAIL, "ioctl() fallo al validar comando invalido (ret=%d, errno=%d, esperado ENOTTY)", ret, errno);
+
 }
 
 static void setup(void)
