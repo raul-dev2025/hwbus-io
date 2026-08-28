@@ -73,12 +73,16 @@ void read_config_ref(uint16_t offset, void *out_val, size_t size)
 
 static void test_ioctl_dedicated(void);
 
-static void test_data_width(unsigned long cmd, uint16_t offset, size_t size, const char *reg_name)
+static void test_data_width(unsigned long cmd, const char *reg_name)
 {
   uint32_t val_ioctl = 0;
   uint32_t val_ref = 0;
   uint32_t mask;
   int ret;
+
+  /* Extrae metadatos */
+  uint16_t offset = _IOC_NR(cmd);
+  size_t size = _IOC_SIZE(cmd);
 
   /* LLamada IOCTL del controlador */
   ret = ioctl(fd, cmd, &val_ioctl);
