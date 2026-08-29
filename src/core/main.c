@@ -30,9 +30,6 @@ static struct class *hwbus_class = NULL;
 static struct device *hwbus_device = NULL;
 static struct hwbus_dev hwbus_device_data;
 
-ssize_t hwbus_pci_config_read(struct file *filp, char __user *buf,
-                              size_t count, loff_t *f_pos);
-
 static int hwbus_open(struct inode *inode, struct file *filp)
 {
   struct hwbus_dev *dev;
@@ -50,8 +47,6 @@ struct file_operations hwbus_fops = {
     .owner = THIS_MODULE,
     .open = hwbus_open,
     .release = hwbus_release,
-    .read = hwbus_pci_config_read,
-    .llseek = hwbus_llseek,
     .unlocked_ioctl = hwbus_unlocked_ioctl,
 };
 
