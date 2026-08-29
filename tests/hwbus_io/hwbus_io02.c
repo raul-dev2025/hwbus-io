@@ -144,7 +144,7 @@ static void test_ioctl_invalid()
   int ret;
 
   /* 1. IOCTL con comando no reconocido */
-  /* Número de magico o comando que el driver no reconoce */
+  /* Número magico o comando que el driver no reconoce */
   unsigned long cmd_invalid = _IOR('X', 0xFF, uint32_t);
 
   ret = ioctl(fd, cmd_invalid, &val);
