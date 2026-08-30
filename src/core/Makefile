@@ -6,7 +6,7 @@
 DRIVER_DIR ?= ../driver
 
 obj-m += hwbus_io.o
-hwbus_io-y := main.o hwbus_param.o hwbus_ioctl.o hwbus_file_ops.o $(DRIVER_DIR)/sysfs_driver.o
+hwbus_io-y := main.o hwbus_param.o hwbus_ioctl.o $(DRIVER_DIR)/sysfs_driver.o
 
 # obj-m += mi_modulo.o
 # mi_modulo-y := hello.c otro.c otro_mas.c
