@@ -43,6 +43,22 @@ static void test_reject_lseek(void)
 
 static void test_reject_read(void)
 {
+  uint8_t buf[4];
+  ssize_t ret;
+
+  ret = read(fd, buf, sizeof(buf));
+
+  if (ret == -1 && (errno == EINVAL || errno == EBADF))
+  {
+    tst_res(TPASS, "read() rechazado correctamente con errno=%d (%s)",
+            errno, strerror(errno));
+  }
+  else
+  {
+    tst_res(TFAIL | TERRNO,
+            "read() no fue rechazado como se esperaba (ret=%zd)",
+            ret);
+  }
 }
 
 static void test_reject_write(void)
