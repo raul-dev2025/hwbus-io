@@ -63,6 +63,22 @@ static void test_reject_read(void)
 
 static void test_reject_write(void)
 {
+  uint8_t dummy[4] = {0xAA, 0xBB, 0xCC, 0xDD};
+  ssize_t ret;
+
+  ret = write(fd, dummy, sizeof(dummy));
+
+  if (ret == -1 && (errno == EINVAL || errno == EBADF))
+  {
+    tst_res(TPASS, "write() rechazado correctamente con errno=%d (%s)",
+            errno, strerror(errno));
+  }
+  else
+  {
+    tst_res(TFAIL | TERRNO,
+            "write() no fue rechazado como se esperaba (ret=%zd)",
+            ret);
+  }
 }
 
 static void setup(void)
