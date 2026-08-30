@@ -24,6 +24,21 @@ static int fd = -1;
 
 static void test_reject_lseek(void)
 {
+  off_t ret;
+
+  ret = lseek(fd, 0, SEEK_SET);
+
+  if (ret == (off_t)-1 && (errno == ESPIPE || errno == EINVAL))
+  {
+    tst_res(TPASS, "lseek() rechazado correctamente con errno=%d (%s)",
+            errno, strerror(errno));
+  }
+  else
+  {
+    tst_res(TFAIL | TERRNO,
+            "lseek() no fue rechazado como se esperaba (ret=%ld)",
+            (long)ret);
+  }
 }
 
 static void test_reject_read(void)
