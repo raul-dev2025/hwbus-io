@@ -22,6 +22,17 @@
 
 static int fd = -1;
 
+static void test_reject_lseek(void)
+{
+}
+
+static void test_reject_read(void)
+{
+}
+
+static void test_reject_write(void)
+{
+}
 
 static void setup(void)
 {
@@ -36,7 +47,13 @@ static void cleanup(void)
 
 static void run_tests(void)
 {
+  test_reject_lseek();
+  test_reject_read();
+  test_reject_write();
 }
 
 static struct tst_test test = {
+    .setup = setup,
+    .cleanup = cleanup,
+    .test_all = run_tests,
 };
