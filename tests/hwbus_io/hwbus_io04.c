@@ -24,6 +24,25 @@
 
 static int fd = -1;
 
+/// @brief Consulta ioctl() sobre fd para obtener la dirección BDF activa.
+/// @param bdf_out
+/// @param size
+static void get_device_bdf(char *bdf_out, size_t size)
+{
+  if (fd < 0)
+    tst_brk(TBROK, "File descriptor /dev/hwbusc is invalid");
+
+  memset(bdf_out, 0, size);
+
+  if (ioctl(fd, HWBUS_IOC_GET_BDF, bdf_out) < 0)
+  {
+    tst_brk(TBROK | TERRNO, "ioctl(HWBUS_IOC_GET_BDF) failed");
+  }
+
+  bdf_out[size - 1] = '\0';
+  bdf_out[strcspn(bdf_out, "\r\n")] = '\0';
+}
+
 
 static void setup(void)
 {
