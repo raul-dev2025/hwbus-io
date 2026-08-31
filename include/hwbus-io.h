@@ -39,6 +39,8 @@ struct hwbus_dev
 */
 #define HWBUS_IOC_MAGIC 'L'
 
+#define HWBUS_IOCRESET _IO(HWBUS_IOC_MAGIC, 0)
+
 /* Registros de Identificación y Control (16 bits) */
 #define HWBUS_IOC_READ_VENDOR _IOR(HWBUS_IOC_MAGIC, PCI_VENDOR_ID, u16)
 #define HWBUS_IOC_READ_DEVICE _IOR(HWBUS_IOC_MAGIC, PCI_DEVICE_ID, u16)
@@ -73,6 +75,8 @@ struct hwbus_dev
 #define HWBUS_IOC_READ_PTR _IOR(HWBUS_IOC_MAGIC, PCI_CAPABILITY_LIST, u8)
 #define HWBUS_IOC_READ_IRQ_LINE _IOR(HWBUS_IOC_MAGIC, PCI_INTERRUPT_LINE, u8)
 #define HWBUS_IOC_READ_IRQ_PIN _IOR(HWBUS_IOC_MAGIC, PCI_INTERRUPT_PIN, u8)
+
+#define HWBUS_IOC_GET_BDF _IOR(HWBUS_IOC_MAGIC, 0x40, char[32])
 
 loff_t hwbus_llseek(struct file *filp, loff_t off, int whence);
 long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg);
