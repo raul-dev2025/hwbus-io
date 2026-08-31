@@ -40,9 +40,14 @@ static void run_test(void)
 {
 }
 
+static const char *const kconfig[] = {
+    "CONFIG_PCI=y",
+    "CONFIG_MODULES=y",
+    NULL};
+
 static struct tst_test test = {
     .needs_root = 1,
-    .needs_kconfigs = 1,
+    .needs_kconfigs = kconfig,
     .setup = setup,
     .cleanup = cleanup,
     .test_all = run_test,
