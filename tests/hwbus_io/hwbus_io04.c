@@ -77,6 +77,8 @@ static void verify_bdf_consistency(const char *expected_bdf)
     return;
   }
 
+  tst_res(TPASS, "BDF %s en /dev/ y BDF %s en SysFS coinciden.",
+          dev_bdf, sysfs_bdf);
 }
 
 
