@@ -81,6 +81,20 @@ static void verify_bdf_consistency(const char *expected_bdf)
           dev_bdf, sysfs_bdf);
 }
 
+/// @brief Orquestar el ciclo de recarga, utilizando las herramientas LTP.
+/// @param bdf_str
+static void reload_hwbus_module(const char *bdf_str)
+{
+  char param[64];
+  const char *const params[] = {param, NULL};
+
+  snprintf(param, sizeof(param), "bdf=%s", bdf_str);
+
+  SAFE_CLOSE(fd);
+  tst_module_unload("hwbus_io");
+  tst_module_load("hwbus_io", params);
+  fd = SAFE_OPEN(DEV_PATH, O_RDWR);
+}
 
 static void setup(void)
 {
