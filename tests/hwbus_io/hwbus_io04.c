@@ -43,6 +43,17 @@ static void get_device_bdf(char *bdf_out, size_t size)
   bdf_out[strcspn(bdf_out, "\r\n")] = '\0';
 }
 
+/// @brief Lectura atómica en SysFS usando la macro de LTP SAFE_FILE_READ_ATOMIC.
+/// @param sysfs_out
+/// @param size
+static void read_sysfs_param(char *sysfs_out, size_t size)
+{
+  memset(sysfs_out, 0, size);
+  SAFE_FILE_SCANF(BDF_PARAM, "%31s", sysfs_out);
+  sysfs_out[size - 1] = '\0';
+  sysfs_out[strcspn(sysfs_out, "\r\n")] = '\0';
+}
+
 
 static void setup(void)
 {
