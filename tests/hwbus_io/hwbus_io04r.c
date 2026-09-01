@@ -21,7 +21,7 @@
 
 #define DEV_PATH "/dev/hwbusc"
 #define BDF_PARAM "/sys/module/hwbus_io/parameters/bdf"
-#define MODULE_PATH "/mnt/build-output/Repos/hwbus-io.git/src"
+#define MODULE_PATH "/mnt/build-output/Repos/hwbus-io.git/src/core/"
 
 static int fd = -1;
 
@@ -94,6 +94,7 @@ static void reload_hwbus_module(const char *bdf_str)
 
   SAFE_CLOSE(fd);
 
+  // Situa el WD en el directorio .ko
   chdir(dirname(mod_dir));
 
   tst_module_unload("hwbus_io");
