@@ -86,7 +86,7 @@ static void verify_bdf_consistency(const char *expected_bdf)
 static void reload_hwbus_module(const char *bdf_str)
 {
   char param[64];
-  const char *const params[] = {param, NULL};
+  char *const params[] = {param, NULL};
 
   snprintf(param, sizeof(param), "bdf=%s", bdf_str);
 
