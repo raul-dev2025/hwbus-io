@@ -7,9 +7,8 @@ LTP_SRC ?= /home/builder/Repos/ltp
 
 # Regla para hacer visible el modulo si lo requiere el test
 MODULE_PATH ?= /mnt/build-output/Repos/hwbus-io.git/src/core/hwbus_io.ko
-CPPFLAGS += -DMODULE_PATH='"$(MODULE_PATH)"'
 
-CFLAGS += -Wall -I../../include -I$(LTP_SRC)/include -I$(LTP_SRC)/include/old
+CFLAGS += -Wall -I../../include -I$(LTP_SRC)/include -I$(LTP_SRC)/include/old -DMODULE_PATH='"$(MODULE_PATH)"'
 LDFLAGS += -L$(LTP_SRC)/lib
 LDLIBS += -lltp
 
