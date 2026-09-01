@@ -63,6 +63,13 @@ static void verify_bdf_consistency(const char *expected_bdf)
   get_device_bdf(dev_bdf, sizeof(dev_bdf));
   read_sysfs_param(sysfs_bdf, sizeof(sysfs_bdf));
 
+  if (strcmp(dev_bdf, sysfs_bdf) != 0)
+  {
+    tst_res(TFAIL, "Inconsistencia detectada: /dev/hwbusc (%s) != SysFS (%s)",
+            dev_bdf, sysfs_bdf);
+    return;
+  }
+
 }
 
 
