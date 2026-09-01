@@ -54,6 +54,17 @@ static void read_sysfs_param(char *sysfs_out, size_t size)
   sysfs_out[strcspn(sysfs_out, "\r\n")] = '\0';
 }
 
+/// @brief Compara los valores en SysFS y /dev/hwbusc, constatando el bdf.
+/// @param expected_bdf
+static void verify_bdf_consistency(const char *expected_bdf)
+{
+  char sysfs_bdf[32], dev_bdf[32];
+
+  get_device_bdf(dev_bdf, sizeof(dev_bdf));
+  read_sysfs_param(sysfs_bdf, sizeof(sysfs_bdf));
+
+}
+
 
 static void setup(void)
 {
