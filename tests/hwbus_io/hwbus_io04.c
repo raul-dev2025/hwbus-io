@@ -70,6 +70,13 @@ static void verify_bdf_consistency(const char *expected_bdf)
     return;
   }
 
+  if (strcmp(dev_bdf, expected_bdf) != 0)
+  {
+    tst_res(TFAIL, "BDF no coincide con el esperado: obtenido (%s) != esperado (%s)",
+            dev_bdf, expected_bdf);
+    return;
+  }
+
 }
 
 
