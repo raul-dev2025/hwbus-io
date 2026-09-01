@@ -93,6 +93,7 @@ static void reload_hwbus_module(const char *bdf_str)
   SAFE_CLOSE(fd);
   tst_module_unload("hwbus_io");
   tst_module_load("hwbus_io", params);
+  tst_res(TINFO, "Probando recarga con BDF: %s", bdf_str);
   fd = SAFE_OPEN(DEV_PATH, O_RDWR);
 }
 
