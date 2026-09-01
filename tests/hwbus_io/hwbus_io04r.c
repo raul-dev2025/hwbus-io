@@ -13,6 +13,7 @@
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <libgen.h>
 
 #include "tst_test.h"
 #include "tst_module.h"
@@ -87,10 +88,14 @@ static void reload_hwbus_module(const char *bdf_str)
 {
   char param[64];
   char *const params[] = {param, NULL};
+  char mod_dir[] = MODULE_PATH;
 
   snprintf(param, sizeof(param), "bdf=%s", bdf_str);
 
   SAFE_CLOSE(fd);
+
+  chdir(dirname(mod_dir));
+
   tst_module_unload("hwbus_io");
   tst_module_load("hwbus_io", params);
   tst_res(TINFO, "Probando recarga con BDF: %s", bdf_str);

@@ -5,8 +5,7 @@
 #
 LTP_SRC ?= /home/builder/Repos/ltp
 
-MODULE_PATH ?= /mnt/build-output/Repos/hwbus-io.git/src/core/hwbus_io.ko
-CFLAGS += -Wall -I../../include -I$(LTP_SRC)/include -I$(LTP_SRC)/include/old -DMODULE_PATH='"$(MODULE_PATH)"'
+CFLAGS += -Wall -I../../include -I$(LTP_SRC)/include -I$(LTP_SRC)/include/old
 LDFLAGS += -L$(LTP_SRC)/lib
 LDLIBS += -lltp
 
