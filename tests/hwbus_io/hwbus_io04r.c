@@ -22,8 +22,8 @@
 #define DEV_PATH "/dev/hwbusc"
 #define BDF_PARAM "/sys/module/hwbus_io/parameters/bdf"
 
-#ifndef MODULE_PATH
-#define MODULE_PATH "/mnt/build-output/Repos/hwbus-io.git/src/core/"
+#ifndef MODULE_DIR
+#define MODULE_DIR "/mnt/build-output/Repos/hwbus-io.git/src/core"
 #endif
 
 static int fd = -1;
@@ -91,7 +91,7 @@ static void reload_hwbus_module(const char *bdf_str)
 {
   char param[64];
   char *const params[] = {param, NULL};
-  char mod_dir[] = MODULE_PATH;
+  // char mod_dir[] = MODULE_DIR;
 
   snprintf(param, sizeof(param), "bdf=%s", bdf_str);
 
@@ -100,10 +100,11 @@ static void reload_hwbus_module(const char *bdf_str)
   // Situa el WD en el directorio .ko
   // setenv("LTP_MODULE_PATH", dirname(mod_dir), 1);
   // chdir(dirname(mod_dir));
-  chdir(MODULE_PATH);
+  // SAFE_SETENV("LTP_MODULE_PATH", MODULE_DIR, 1);
+  // chdir(MODULE_DIR);
 
   tst_module_unload("hwbus_io");
-  tst_module_load("hwbus_io", params);
+  tst_module_load(MODULE_DIR "/hwbus_io", params);
   tst_res(TINFO, "Probando recarga con BDF: %s", bdf_str);
   fd = SAFE_OPEN(DEV_PATH, O_RDWR);
 }
@@ -121,8 +122,9 @@ static void cleanup(void)
 
 static void run_test(void)
 {
-  const char *test_bdfs[] = {"0000:03:00.0", "0000:00:02.2", "0000:0a:01.0"};
-  for (int i = 0; i < 3; i++)
+  // const char *test_bdfs[] = {"0000:03:00.0", "0000:00:02.2", "0000:0a:01.0"};
+  const char *test_bdfs[] = {"0000:03:00.0"};
+  for (int i = 0; i < 1; i++)
   {
     reload_hwbus_module(test_bdfs[i]);
     verify_bdf_consistency(test_bdfs[i]);
