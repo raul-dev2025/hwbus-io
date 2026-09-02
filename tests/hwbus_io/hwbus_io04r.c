@@ -30,6 +30,7 @@
 #define BDF_PARAM "/sys/module/hwbus_io/parameters/bdf"
 
 #ifndef MODULE_DIR
+#define MODULE_DIR "/mnt/build-output/Repos/hwbus-io.git/src/core"
 #endif
 
 static int fd = -1;
