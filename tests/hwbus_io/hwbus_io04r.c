@@ -118,6 +118,8 @@ static void reload_hwbus_module(const char *bdf_str)
   chdir(MODULE_DIR);
   if (getcwd(cwd, sizeof(cwd)))
     tst_res(TINFO, "Directorio actual (WD): %s", cwd);
+  // if (getcwd(cwd, sizeof(cwd)))
+  // tst_res(TINFO, "Directorio actual (WD): %s", cwd);
   tst_module_load("hwbus_io.ko", params);
   tst_res(TINFO, "Probando recarga con BDF: %s", bdf_str);
   fd = SAFE_OPEN(DEV_PATH, O_RDWR);
