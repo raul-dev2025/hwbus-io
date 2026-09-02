@@ -22,9 +22,20 @@ static bool is_valid_hwbus_cmd(unsigned int cmd)
 long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 {
   struct pci_dev *pdev = hwbus_get_pci_dev_from_param();
+  int ret;
+
+  if (cmd == HWBUS_IOC_GET_BDF)
+  {
+    struct hwbus_bdf_info info;
+
+    if (!pdev)
+      return -ENODEV;
+
+    return 0;
+  }
+
   u8 offset = _IOC_NR(cmd);
   u8 size = _IOC_SIZE(cmd);
-  int ret;
 
   if (!is_valid_hwbus_cmd(cmd))
     return -ENOTTY;
