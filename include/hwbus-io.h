@@ -33,6 +33,13 @@ struct hwbus_dev
   struct pci_dev *pdev;
 };
 
+struct hwbus_bdf_info
+{
+  uint16_t domain;
+  uint8_t bus;
+  uint8_t devfn;
+};
+
 /*
   IOCTL command encoding - Mapeo declarativo de comandos o
                            despacho semántico por tabla de tipos
