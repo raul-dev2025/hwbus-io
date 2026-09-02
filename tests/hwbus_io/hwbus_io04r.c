@@ -50,8 +50,8 @@ static void get_device_bdf(char *bdf_out, size_t size)
     tst_brk(TBROK | TERRNO, "ioctl(HWBUS_IOC_GET_BDF) failed");
   }
 
-  bdf_out[size - 1] = '\0';
-  bdf_out[strcspn(bdf_out, "\r\n")] = '\0';
+  snprintf(bdf_out, size, "%04x:%02x:%02x.%x",
+           info.domain, info.bus, PCI_SLOT(info.devfn), PCI_FUNC(info.devfn));
 }
 
 /// @brief Lectura atómica en SysFS usando la macro de LTP SAFE_FILE_READ_ATOMIC.
