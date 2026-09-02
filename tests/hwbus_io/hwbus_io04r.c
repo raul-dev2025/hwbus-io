@@ -99,7 +99,7 @@ static void reload_hwbus_module(const char *bdf_str)
   char param[64];
   char *const params[] = {param, NULL};
   // char mod_dir[] = MODULE_DIR;
-  char cwd[1024];
+  // char cwd[1024];
 
   snprintf(param, sizeof(param), "bdf=%s", bdf_str);
 
