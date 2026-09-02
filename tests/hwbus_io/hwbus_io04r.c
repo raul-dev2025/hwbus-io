@@ -105,13 +105,6 @@ static void reload_hwbus_module(const char *bdf_str)
 
   SAFE_CLOSE(fd);
 
-  // Situa el WD en el directorio .ko
-  // setenv("LTP_MODULE_PATH", dirname(mod_dir), 1);
-  // chdir(dirname(mod_dir));
-  // SAFE_SETENV("LTP_MODULE_PATH", MODULE_DIR, 1);
-  // chdir(MODULE_DIR);
-  // cambia al directorio y vuelve a consultar getcwd
-
   tst_module_unload("hwbus_io");
   if (getcwd(cwd, sizeof(cwd)))
     tst_res(TINFO, "Directorio actual (WD): %s", cwd);
