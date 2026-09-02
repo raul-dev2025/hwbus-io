@@ -19,11 +19,17 @@
 #include "tst_module.h"
 #include <user/hwbus_io_uapi.h>
 
+#ifndef PCI_SLOT
+#define PCI_SLOT(devfn) (((devfn) >> 3) & 0x1f)
+#endif
+#ifndef PCI_FUNC
+#define PCI_FUNC(devfn) ((devfn) & 0x07)
+#endif
+
 #define DEV_PATH "/dev/hwbusc"
 #define BDF_PARAM "/sys/module/hwbus_io/parameters/bdf"
 
 #ifndef MODULE_DIR
-#define MODULE_DIR "/mnt/build-output/Repos/hwbus-io.git/src/core/hwbus_io.ko"
 #endif
 
 static int fd = -1;
