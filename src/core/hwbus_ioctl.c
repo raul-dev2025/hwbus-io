@@ -31,6 +31,10 @@ long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg
     if (!pdev)
       return -ENODEV;
 
+    info.domain = pci_domain_nr(pdev->bus);
+    info.bus = pdev->bus->number;
+    info.devfn = pdev->devfn;
+
     return 0;
   }
 
