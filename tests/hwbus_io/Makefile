@@ -24,6 +24,7 @@ all: $(TARGETS)
 
 # regla implicita para compilar individualmente
 %: %.c
+	ln -sf $(MODULE_DIR)/hwbus_io.ko .
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $< $(LDLIBS) -o $@
 
 
