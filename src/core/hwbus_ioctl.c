@@ -35,6 +35,9 @@ long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg
     info.bus = pdev->bus->number;
     info.devfn = pdev->devfn;
 
+    if (copy_to_user((void __user *)arg, &info, sizeof(info)))
+      return -EFAULT;
+
     return 0;
   }
 
