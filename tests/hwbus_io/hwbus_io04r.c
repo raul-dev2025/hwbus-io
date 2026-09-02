@@ -22,9 +22,9 @@
 #define DEV_PATH "/dev/hwbusc"
 #define BDF_PARAM "/sys/module/hwbus_io/parameters/bdf"
 
-// #ifndef MODULE_DIR
-// #define MODULE_DIR "/mnt/build-output/Repos/hwbus-io.git/src/core/hwbus_io"
-// #endif
+#ifndef MODULE_DIR
+#define MODULE_DIR "/mnt/build-output/Repos/hwbus-io.git/src/core/hwbus_io.ko"
+#endif
 
 static int fd = -1;
 
@@ -103,11 +103,15 @@ static void reload_hwbus_module(const char *bdf_str)
   // chdir(dirname(mod_dir));
   // SAFE_SETENV("LTP_MODULE_PATH", MODULE_DIR, 1);
   // chdir(MODULE_DIR);
+  // cambia al directorio y vuelve a consultar getcwd
 
   tst_module_unload("hwbus_io");
   if (getcwd(cwd, sizeof(cwd)))
     tst_res(TINFO, "Directorio actual (WD): %s", cwd);
-  tst_module_load("hwbus_io", params);
+  chdir(MODULE_DIR);
+  if (getcwd(cwd, sizeof(cwd)))
+    tst_res(TINFO, "Directorio actual (WD): %s", cwd);
+  tst_module_load("hwbus_io.ko", params);
   tst_res(TINFO, "Probando recarga con BDF: %s", bdf_str);
   fd = SAFE_OPEN(DEV_PATH, O_RDWR);
 }
