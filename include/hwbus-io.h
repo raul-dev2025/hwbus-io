@@ -83,7 +83,7 @@ struct hwbus_bdf_info
 #define HWBUS_IOC_READ_IRQ_LINE _IOR(HWBUS_IOC_MAGIC, PCI_INTERRUPT_LINE, u8)
 #define HWBUS_IOC_READ_IRQ_PIN _IOR(HWBUS_IOC_MAGIC, PCI_INTERRUPT_PIN, u8)
 
-#define HWBUS_IOC_GET_BDF _IOR(HWBUS_IOC_MAGIC, 0x40, char[32])
+#define HWBUS_IOC_GET_BDF _IOR(HWBUS_IOC_MAGIC, 0x40, struct hwbus_bdf_info)
 
 loff_t hwbus_llseek(struct file *filp, loff_t off, int whence);
 long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg);
