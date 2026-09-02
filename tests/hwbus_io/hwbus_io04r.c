@@ -45,9 +45,7 @@ static void get_device_bdf(char *bdf_out, size_t size)
   if (fd < 0)
     tst_brk(TBROK, "File descriptor /dev/hwbusc is invalid");
 
-  memset(bdf_out, 0, size);
-
-  if (ioctl(fd, HWBUS_IOC_GET_BDF, bdf_out) < 0)
+  if (ioctl(fd, HWBUS_IOC_GET_BDF, &info) < 0)
   {
     tst_brk(TBROK | TERRNO, "ioctl(HWBUS_IOC_GET_BDF) failed");
   }
