@@ -4,6 +4,13 @@
 #include <sys/ioctl.h>
 #include <stdint.h>
 
+struct hwbus_bdf_info
+{
+  uint16_t domain;
+  uint8_t bus;
+  uint8_t devfn;
+};
+
 /* Definiciones de Offset PCI (si no se incluyen desde <linux/pci_regs.h>) */
 #ifndef PCI_VENDOR_ID
 #define PCI_VENDOR_ID 0x00
@@ -71,6 +78,6 @@
 #define HWBUS_IOC_READ_IRQ_LINE _IOR(HWBUS_IOC_MAGIC, PCI_INTERRUPT_LINE, uint8_t)
 #define HWBUS_IOC_READ_IRQ_PIN _IOR(HWBUS_IOC_MAGIC, PCI_INTERRUPT_PIN, uint8_t)
 
-#define HWBUS_IOC_GET_BDF _IOR(HWBUS_IOC_MAGIC, 0x40, char[32])
+#define HWBUS_IOC_GET_BDF _IOR(HWBUS_IOC_MAGIC, 0x40, struct hwbus_bdf_info)
 
 #endif // HWBUS_IO_UAPI_H
