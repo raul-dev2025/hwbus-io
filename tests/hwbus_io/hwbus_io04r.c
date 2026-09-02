@@ -40,6 +40,8 @@ static int fd = -1;
 /// @param size
 static void get_device_bdf(char *bdf_out, size_t size)
 {
+  struct hwbus_bdf_info info;
+
   if (fd < 0)
     tst_brk(TBROK, "File descriptor /dev/hwbusc is invalid");
 
