@@ -9,7 +9,7 @@ LTP_SRC ?= /home/builder/Repos/ltp
 MODULE_DIR ?= /mnt/build-output/Repos/hwbus-io.git/src/core
 CPPFLAGS += -DMODULE_DIR='"$(MODULE_DIR)"'
 
-CFLAGS += -Wall -I../../include -I$(LTP_SRC)/include -I$(LTP_SRC)/include/old
+CFLAGS += -Wall -I../../include -I$(LTP_SRC)/include
 LDFLAGS += -L$(LTP_SRC)/lib
 LDLIBS += -lltp
 
