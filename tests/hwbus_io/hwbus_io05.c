@@ -22,6 +22,7 @@
 
 #define DEV_PATH "/dev/hwbusc"
 #define STRESS_ITERATIONS 1000
+#define CONCURRENT_PROCESS 8
 
 static void verify_mmap_rejection(int fd)
 {
@@ -65,17 +66,22 @@ static void setup(void)
 
 static void cleanup(void)
 {
-  if (fd >= 0)
-    SAFE_CLOSE(fd);
 }
 
 static void run_test(void)
 {
+  pid_t pid;
+  for (int i = 0; i < CONCURRENT_PROCESS; i++)
+  {
+    pid = SAFE_FORK();
+    if (pid == 0)
+      chidld_process_work();
+  }
+  tst_reap_children();
 }
 
 static struct tst_test test = {
     .setup = setup,
     .cleanup = cleanup,
     .test_all = run_test,
-    //.forks = 3,
 };
