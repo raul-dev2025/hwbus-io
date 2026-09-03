@@ -21,6 +21,7 @@
 #include <user/hwbus_io_uapi.h> //Cabecera uapi con cmds IOCTL específicos del driver
 
 #define DEV_PATH "/dev/hwbusc"
+#define STRESS_ITERATIONS 1000
 
 static void verify_mmap_rejection(int fd)
 {
@@ -31,6 +32,20 @@ static void verify_mmap_rejection(int fd)
                 "mmap() sobre /dev/hwbusc denegado correctamente");
 }
 
+static void child_process_work(void)
+{
+  int local_fd;
+  struct hwbus_bdf_info bdf;
+
+  local_fd = SAFE_OPEN(DEV_PATH, O_RDONLY);
+  verify_mmap_rejection(local_fd);
+
+  for (int i = 0; i < STRESS_ITERATIONS; i++)
+  {
+  }
+  SAFE_CLOSE(local_fd);
+  exit(0);
+}
 
 static void setup(void)
 {
