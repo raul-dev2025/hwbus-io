@@ -127,8 +127,8 @@ static void cleanup(void)
 
 static void run_test(void)
 {
-  // const char *test_bdfs[] = {"0000:03:00.0", "0000:00:02.2", "0000:0a:01.0"};
-  const char *test_bdfs[] = {"0000:03:00.0"};
+  const char *test_bdfs[] = {"0000:03:00.0", "0000:00:02.2", "0000:0a:01.0"};
+  // const char *test_bdfs[] = {"0000:03:00.0"};
   for (int i = 0; i < 1; i++)
   {
     reload_hwbus_module(test_bdfs[i]);
