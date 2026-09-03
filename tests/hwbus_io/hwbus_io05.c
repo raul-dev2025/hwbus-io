@@ -28,7 +28,7 @@ static void verify_mmap_rejection(int fd)
 {
   size_t page_size = (size_t)sysconf(_SC_PAGESIZE);
 
-  TST_EXP_FAIL2(mmap(NULL, page_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0),
+  TST_EXP_FAIL2((long)mmap(NULL, page_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0),
                 ENODEV,
                 "mmap() sobre /dev/hwbusc denegado correctamente");
 }
@@ -75,7 +75,7 @@ static void run_test(void)
   {
     pid = SAFE_FORK();
     if (pid == 0)
-      chidld_process_work();
+      child_process_work();
   }
   tst_reap_children();
 }
