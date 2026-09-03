@@ -26,6 +26,11 @@ static void verify_mmap_rejection(int fd)
 {
   size_t page_size = (size_t)sysconf(_SC_PAGESIZE);
 
+  TST_EXP_FAIL2(mmap(NULL, page_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0),
+                ENODEV,
+                "mmap() sobre /dev/hwbusc denegado correctamente");
+}
+
 
 static void setup(void)
 {
