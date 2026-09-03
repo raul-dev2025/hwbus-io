@@ -98,19 +98,26 @@ static void reload_hwbus_module(const char *bdf_str)
 {
   char param[64];
   char *const params[] = {param, NULL};
-  // char mod_dir[] = MODULE_DIR;
-  // char cwd[1024];
 
   snprintf(param, sizeof(param), "bdf=%s", bdf_str);
 
-  SAFE_CLOSE(fd);
+  if (fd >= 0)
+  {
+    SAFE_CLOSE(fd);
+    fd = -1;
+  }
 
   tst_module_unload("hwbus_io");
+
+  // Tiempo para que el Kernel/SysFS procese la descarga 250 ms
+  usleep(250000);
+
   chdir(MODULE_DIR);
-  // if (getcwd(cwd, sizeof(cwd)))
-  // tst_res(TINFO, "Directorio actual (WD): %s", cwd);
   tst_module_load("hwbus_io.ko", params);
   tst_res(TINFO, "Probando recarga con BDF: %s", bdf_str);
+
+  // Espera a disponibilidad del nodo 100 ms
+  usleep(100000);
   fd = SAFE_OPEN(DEV_PATH, O_RDWR);
 }
 
