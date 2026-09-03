@@ -19,3 +19,29 @@
 #include "tst_test.h"           // Macroestructuras y API principal del framework de pruebas LTP
 #include "tst_module.h"         //Herramientas de LTP para gestión y control del módulo kernel
 #include <user/hwbus_io_uapi.h> //Cabecera uapi con cmds IOCTL específicos del driver
+
+#define DEV_PATH "/dev/hwbusc"
+
+static void verify_mmap_rejection(int fd);
+
+static void setup(void)
+{
+  return 0;
+}
+
+static void cleanup(void)
+{
+  if (fd >= 0)
+    SAFE_CLOSE(fd);
+}
+
+static void run_test(void)
+{
+}
+
+static struct tst_test test = {
+    .setup = setup,
+    .cleanup = cleanup,
+    .test_all = run_test,
+    //.forks = 3,
+};
