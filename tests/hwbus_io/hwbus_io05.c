@@ -26,7 +26,10 @@ static void verify_mmap_rejection(int fd);
 
 static void setup(void)
 {
-  return 0;
+  if (access(DEV_PATH, F_OK) != 0)
+    tst_brk(TBROK, "El dispositivo %s no estaba preparado", DEV_PATH);
+  if (access(DEV_PATH, R_OK) != 0)
+    tst_brk(TBROK, "Permisos insuficientes sobre el dispositivo %s", DEV_PATH);
 }
 
 static void cleanup(void)
