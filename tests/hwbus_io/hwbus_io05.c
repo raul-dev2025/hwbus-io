@@ -22,7 +22,10 @@
 
 #define DEV_PATH "/dev/hwbusc"
 
-static void verify_mmap_rejection(int fd);
+static void verify_mmap_rejection(int fd)
+{
+  size_t page_size = (size_t)sysconf(_SC_PAGESIZE);
+
 
 static void setup(void)
 {
