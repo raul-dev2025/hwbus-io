@@ -98,5 +98,3 @@ if echo "${STOP_OUTPUT}" | grep -q "apagada con éxito"; then
 else
     echo "⚠️ Advertencia: Revisa el estado de la VM mediante ./vm-status.sh"
 fi
-
-# Trigger CI build for BTF verification
