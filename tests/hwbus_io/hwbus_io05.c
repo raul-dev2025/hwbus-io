@@ -84,4 +84,5 @@ static struct tst_test test = {
     .setup = setup,
     .cleanup = cleanup,
     .test_all = run_test,
+    .forks_child = 1,
 };
