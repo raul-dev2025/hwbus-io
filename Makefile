@@ -3,6 +3,9 @@
 #
 # Makefile - Build instructions for hwbus-io
 #
+# Forzar la ruta del BTF base de la imagen en ejecución para Kbuild
+export KBUILD_BPF_BOOT_BTF ?= /sys/kernel/btf/vmlinux
+
 .PHONY: module test clean
 
 PWD  := $(shell pwd)

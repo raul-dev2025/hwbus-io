@@ -1,0 +1,83 @@
+#ifndef HWBUS_IO_UAPI_H
+#define HWBUS_IO_UAPI_H
+
+#include <sys/ioctl.h>
+#include <stdint.h>
+
+struct hwbus_bdf_info
+{
+  uint16_t domain;
+  uint8_t bus;
+  uint8_t devfn;
+};
+
+/* Definiciones de Offset PCI (si no se incluyen desde <linux/pci_regs.h>) */
+#ifndef PCI_VENDOR_ID
+#define PCI_VENDOR_ID 0x00
+#define PCI_DEVICE_ID 0x02
+#define PCI_COMMAND 0x04
+#define PCI_STATUS 0x06
+#define PCI_REVISION_ID 0x08
+#define PCI_CLASS_PROG 0x09
+#define PCI_CLASS_DEVICE 0x0a
+#define PCI_CACHE_LINE_SIZE 0x0c
+#define PCI_LATENCY_TIMER 0x0d
+#define PCI_HEADER_TYPE 0x0e
+#define PCI_BIST 0x0f
+#define PCI_BASE_ADDRESS_0 0x10
+#define PCI_BASE_ADDRESS_1 0x14
+#define PCI_BASE_ADDRESS_2 0x18
+#define PCI_BASE_ADDRESS_3 0x1c
+#define PCI_BASE_ADDRESS_4 0x20
+#define PCI_BASE_ADDRESS_5 0x24
+#define PCI_SUBSYSTEM_VENDOR_ID 0x2c
+#define PCI_SUBSYSTEM_ID 0x2e
+#define PCI_ROM_ADDRESS 0x30
+#define PCI_CAPABILITY_LIST 0x34
+#define PCI_INTERRUPT_LINE 0x3c
+#define PCI_INTERRUPT_PIN 0x3d
+#endif
+
+/* Magic Number e IOCTL Commands para Userspace */
+#define HWBUS_IOC_MAGIC 'L'
+
+#define HWBUS_IOCRESET _IO(HWBUS_IOC_MAGIC, 0)
+
+/* Registros de Identificación y Control */
+#define HWBUS_IOC_READ_VENDOR _IOR(HWBUS_IOC_MAGIC, PCI_VENDOR_ID, uint16_t)
+#define HWBUS_IOC_READ_DEVICE _IOR(HWBUS_IOC_MAGIC, PCI_DEVICE_ID, uint16_t)
+#define HWBUS_IOC_READ_COMMAND _IOR(HWBUS_IOC_MAGIC, PCI_COMMAND, uint16_t)
+#define HWBUS_IOC_READ_STATUS _IOR(HWBUS_IOC_MAGIC, PCI_STATUS, uint16_t)
+
+/* Registros de Información de Silicio y Clase */
+#define HWBUS_IOC_READ_REVISION _IOR(HWBUS_IOC_MAGIC, PCI_REVISION_ID, uint8_t)
+#define HWBUS_IOC_READ_CLASS_PROG _IOR(HWBUS_IOC_MAGIC, PCI_CLASS_PROG, uint8_t)
+#define HWBUS_IOC_READ_CLASS _IOR(HWBUS_IOC_MAGIC, PCI_CLASS_DEVICE, uint16_t)
+
+/* Registros Temporales y Cabecera */
+#define HWBUS_IOC_READ_CACHE _IOR(HWBUS_IOC_MAGIC, PCI_CACHE_LINE_SIZE, uint8_t)
+#define HWBUS_IOC_READ_LATENCY _IOR(HWBUS_IOC_MAGIC, PCI_LATENCY_TIMER, uint8_t)
+#define HWBUS_IOC_READ_HTYPE _IOR(HWBUS_IOC_MAGIC, PCI_HEADER_TYPE, uint8_t)
+#define HWBUS_IOC_READ_BIST _IOR(HWBUS_IOC_MAGIC, PCI_BIST, uint8_t)
+
+/* Direcciones Base (BARs) */
+#define HWBUS_IOC_READ_BAR0 _IOR(HWBUS_IOC_MAGIC, PCI_BASE_ADDRESS_0, uint32_t)
+#define HWBUS_IOC_READ_BAR1 _IOR(HWBUS_IOC_MAGIC, PCI_BASE_ADDRESS_1, uint32_t)
+#define HWBUS_IOC_READ_BAR2 _IOR(HWBUS_IOC_MAGIC, PCI_BASE_ADDRESS_2, uint32_t)
+#define HWBUS_IOC_READ_BAR3 _IOR(HWBUS_IOC_MAGIC, PCI_BASE_ADDRESS_3, uint32_t)
+#define HWBUS_IOC_READ_BAR4 _IOR(HWBUS_IOC_MAGIC, PCI_BASE_ADDRESS_4, uint32_t)
+#define HWBUS_IOC_READ_BAR5 _IOR(HWBUS_IOC_MAGIC, PCI_BASE_ADDRESS_5, uint32_t)
+
+/* Subsistema y ROM */
+#define HWBUS_IOC_READ_SVENDOR _IOR(HWBUS_IOC_MAGIC, PCI_SUBSYSTEM_VENDOR_ID, uint16_t)
+#define HWBUS_IOC_READ_SUBSYSTEM _IOR(HWBUS_IOC_MAGIC, PCI_SUBSYSTEM_ID, uint16_t)
+#define HWBUS_IOC_READ_ROM _IOR(HWBUS_IOC_MAGIC, PCI_ROM_ADDRESS, uint32_t)
+
+/* Capacidades e Interrupciones */
+#define HWBUS_IOC_READ_PTR _IOR(HWBUS_IOC_MAGIC, PCI_CAPABILITY_LIST, uint8_t)
+#define HWBUS_IOC_READ_IRQ_LINE _IOR(HWBUS_IOC_MAGIC, PCI_INTERRUPT_LINE, uint8_t)
+#define HWBUS_IOC_READ_IRQ_PIN _IOR(HWBUS_IOC_MAGIC, PCI_INTERRUPT_PIN, uint8_t)
+
+#define HWBUS_IOC_GET_BDF _IOR(HWBUS_IOC_MAGIC, 0x40, struct hwbus_bdf_info)
+
+#endif // HWBUS_IO_UAPI_H

@@ -5,7 +5,7 @@
  * Copyright (C) 2026 Raúl Vílchez Ruiz <raulmicrosistemas@gmail.com>
  */
 #include <linux/cdev.h>
-#include <linux/device.h>
+
 #include <linux/fs.h>
 #include <linux/init.h>
 #include <linux/kernel.h>
@@ -30,9 +30,6 @@ static struct class *hwbus_class = NULL;
 static struct device *hwbus_device = NULL;
 static struct hwbus_dev hwbus_device_data;
 
-ssize_t hwbus_pci_config_read(struct file *filp, char __user *buf,
-                              size_t count, loff_t *f_pos);
-
 static int hwbus_open(struct inode *inode, struct file *filp)
 {
   struct hwbus_dev *dev;
@@ -50,7 +47,7 @@ struct file_operations hwbus_fops = {
     .owner = THIS_MODULE,
     .open = hwbus_open,
     .release = hwbus_release,
-    .read = hwbus_pci_config_read,
+    .unlocked_ioctl = hwbus_unlocked_ioctl,
 };
 
 static int __init hwbus_init(void)

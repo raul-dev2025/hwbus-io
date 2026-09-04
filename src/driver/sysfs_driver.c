@@ -4,36 +4,14 @@
  *
  * Copyright (C) 2026 Raúl Vílchez Ruiz <raulmicrosistemas@gmail.com>
  */
-#include <hwbus_param.h>
-#include <linux/pci.h>
+/*
+  - Atributos de estado del dispositivo (/sys/class/hwbusc/hwbusc/): Exposición de información de diagnóstico en modo texto (ASCII) para inspección rápida mediante cat, sin requerir llamadas IOCTL (por ejemplo, estado de vinculación PCI, estadísticas de lecturas o errores).
+*/
 
-#include <sysfs_driver.h>
+/*
+  - Callbacks de atributos (sysfs_ops): Implementación de funciones show y store mediante las macros de kernel DEVICE_ATTR_RO o DEVICE_ATTR_RW.
+*/
 
-ssize_t hwbus_pci_config_read(struct file *filp, char __user *buf,
-                              size_t count, loff_t *f_pos)
-{
-  struct pci_dev *pdev = hwbus_get_pci_dev_from_param();
-  u16 val;
-
-  if (!pdev)
-    return -ENODEV;
-
-  if (*f_pos == 0 && count >= 2)
-  {
-    pci_read_config_word(pdev, PCI_VENDOR_ID, &val);
-    if (copy_to_user(buf, &val, 2))
-      return -EFAULT;
-    *f_pos += 2;
-    return 2;
-  }
-  else if (*f_pos == 2 && count >= 2)
-  {
-    pci_read_config_word(pdev, PCI_DEVICE_ID, &val);
-    if (copy_to_user(buf, &val, 2))
-      return -EFAULT;
-    *f_pos += 2;
-    return 2;
-  }
-
-  return 0;
-}
+/*
+  - Control dinámico vía SysFS: Posibilidad de modificar comportamientos en tiempo de ejecución (como alternar el nivel de depuración o forzar un re-escaneo del bus
+*/
