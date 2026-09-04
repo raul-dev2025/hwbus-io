@@ -61,4 +61,11 @@ sudo insmod "${MODULE_KO_PATH}"
 
 # 6. Ejecución de la prueba LTP
 echo "🚀 Ejecutando test LTP: ${TEST_BINARY_NAME}..."
-sudo "${TEST_BINARY_PATH}" 2> "${RUN_LOG}" || true
+
+if [[ "${TEST_BINARY_NAME}" == *r ]]; then
+    echo "🔑 Test con gestión de módulo detectado (*r): ejecutando con sudo..."
+    sudo "${TEST_BINARY_PATH}" 2> "${RUN_LOG}" || true
+else
+    echo "👤 Test estándar detectado: ejecutando en usuario..."
+    "${TEST_BINARY_PATH}" 2> "${RUN_LOG}" || true
+fi
