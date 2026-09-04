@@ -57,6 +57,14 @@ static void child_process_work(void)
       errors++;
   }
 
+  // Asercion por hijo
+  if (errors == 0)
+    tst_res(TPASS, "Proceso hijo completó %d iteraciones de ioctl sin errores",
+            STRESS_ITERATIONS);
+  else
+    tst_res(TFAIL, "Proceso hijo detectó %d fallos en las iteraciones ioctl",
+            errors);
+
   SAFE_CLOSE(local_fd);
   exit(0);
 }
