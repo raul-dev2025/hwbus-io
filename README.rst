@@ -76,7 +76,13 @@ Execute the local runner to handle remote buildlab synchronization, module signi
 
 .. code-block:: bash
 
-   ./ci-runner.sh
+   ./ci-builder.sh
+   ./ci-runLauncher.sh
+
+
+.. tip::
+
+   Run ci-builder.sh to launch compilation and execute the compiled test with ci-runLauncher.sh
 
 License
 =======
