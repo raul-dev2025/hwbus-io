@@ -21,15 +21,18 @@ static bool is_valid_hwbus_cmd(unsigned int cmd)
 
 long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 {
-  struct pci_dev *pdev = hwbus_get_pci_dev_from_param();
-  int ret;
+  struct hwbus_dev *dev = filp->private_data;
+  if (!dev)
+    return -ENODEV;
 
   if (cmd == HWBUS_IOC_GET_BDF)
   {
     struct hwbus_bdf_info info;
+  struct pci_dev *pdev = dev->pdev;
 
     if (!pdev)
       return -ENODEV;
+  int ret;
 
     info.domain = pci_domain_nr(pdev->bus);
     info.bus = pdev->bus->number;
