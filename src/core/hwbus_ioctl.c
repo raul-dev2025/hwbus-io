@@ -19,29 +19,29 @@ static bool is_valid_hwbus_cmd(unsigned int cmd)
          (offset % size == 0);
 }
 
+static long hwbus_ioc_reset(struct hwbus_dev *dev)
+{
+
+  if (!dev)
+    return -ENODEV;
+
+  dev->is_active = true;
+
+  return 0;
+}
+
 long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 {
   struct hwbus_dev *dev = filp->private_data;
   if (!dev)
     return -ENODEV;
 
-  if (cmd == HWBUS_IOC_GET_BDF)
-  {
-    struct hwbus_bdf_info info;
   struct pci_dev *pdev = dev->pdev;
 
-    if (!pdev)
-      return -ENODEV;
   int ret;
 
-    info.domain = pci_domain_nr(pdev->bus);
-    info.bus = pdev->bus->number;
-    info.devfn = pdev->devfn;
 
-    if (copy_to_user((void __user *)arg, &info, sizeof(info)))
-      return -EFAULT;
 
-    return 0;
   }
 
   u8 offset = _IOC_NR(cmd);
