@@ -57,8 +57,16 @@ long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg
 
   int ret;
 
+  switch (cmd)
+  {
+  case HWBUS_IOCRESET:
+    return hwbus_ioc_reset(dev);
 
+  case HWBUS_IOC_GET_BDF:
+    return hwbus_ioc_get_bdf(pdev, arg);
 
+  default:
+    break;
   }
 
   u8 offset = _IOC_NR(cmd);
