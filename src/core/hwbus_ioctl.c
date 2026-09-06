@@ -30,6 +30,23 @@ static long hwbus_ioc_reset(struct hwbus_dev *dev)
   return 0;
 }
 
+static long hwbus_ioc_get_bdf(struct pci_dev *pdev, unsigned long arg)
+{
+  struct hwbus_bdf_info info;
+
+  if (!pdev)
+    return -ENODEV;
+
+  info.domain = pci_domain_nr(pdev->bus);
+  info.bus = pdev->bus->number;
+  info.devfn = pdev->devfn;
+
+  if (copy_to_user((void __user *)arg, &info, sizeof(info)))
+    return -EFAULT;
+
+  return 0;
+}
+
 long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 {
   struct hwbus_dev *dev = filp->private_data;
