@@ -37,6 +37,28 @@ static const char *subtests[] = {
 
 int fd = -1;
 
+static int ensure_module_loaded(void)
+{
+  struct stat st;
+
+  if (stat(DEV_PATH, &st) == 0) // la carga del modulo esta implicita!
+    return 0;
+
+  tst_res(TINFO, "El nodo %s no está presente. Intentando recargar el módulo kernel...",
+          DEV_PATH);
+  tst_module_load("hwbus_io", NULL);
+
+  if (stat(DEV_PATH, &st) != 0)
+  {
+    tst_res(TWARN, "Fallo al verificar el nodo %s tras intentar recargar el módulo",
+            DEV_PATH);
+    return -1;
+  }
+  tst_res(TINFO, "Módulo e interfaz %s restaurados correctamente",
+          DEV_PATH);
+  return 0;
+}
+
 static void setup(void)
 {
   if (chdir(TESTS_DIR) != 0)
