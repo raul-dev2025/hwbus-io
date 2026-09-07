@@ -155,6 +155,16 @@ static int run_subtest(const char *subtest_path)
       tst_res(TFAIL, "Sub-test %s retorno codigo de fallo: %d",
               subtest_path, exit_code);
   }
+  else if (WIFSIGNALED(status))
+  {
+    int sig = WTERMSIG(status);
+
+    tst_res(TFAIL, "Sub-test %s colapsó por señal %d (%s)",
+            subtest_path, sig, strsignal(sig));
+  }
+  else
+    tst_res(TFAIL, "Sub-test %s terminó en un estado indeterminado",
+            subtest_path);
 }
 
 
