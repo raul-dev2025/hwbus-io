@@ -92,6 +92,12 @@ static void cleanup(void)
 {
   int fd;
 
+  if (ensure_module_loaded() != 0)
+  {
+    tst_res(TWARN, "Cleanup: No se pudo verificar/recargar el módulo kernel");
+    return;
+  }
+
   fd = open(fd, HWBUS_IOCRESET);
   if (fd < 0)
   {
