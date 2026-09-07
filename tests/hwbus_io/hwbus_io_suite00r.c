@@ -117,8 +117,16 @@ static void cleanup(void)
   close(local_fd);
 }
 
-static int run_subtest(const char *subtest_path);
 static void run_all_tests(void);
+static int run_subtest(const char *subtest_path)
+{
+  pid_t pid;
+  int status;
+
+  tst_res(TINFO, "Ejecutando sub-test: %s", subtest_path);
+
+}
+
 
 static struct tst_test test = {
     .setup = setup,
