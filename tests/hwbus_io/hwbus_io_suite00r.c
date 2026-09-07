@@ -36,8 +36,6 @@ static const char *subtests[] = {
     "./hwbus_io05"};
 #define NUM_SUBTESTS sizeof(subtests) / sizeof(subtests[0])
 
-int fd = -1;
-
 static int ensure_module_loaded(void)
 {
   struct stat st;
