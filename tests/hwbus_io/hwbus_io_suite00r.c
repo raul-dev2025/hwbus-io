@@ -117,3 +117,12 @@ static void cleanup(void)
 
   close(fd);
 }
+
+static int run_subtest(const char *subtest_path);
+static void run_all_tests(void);
+
+static struct tst_test test = {
+    .setup = setup,
+    .cleanup = cleanup,
+    .test_all = run_all_tests,
+};
