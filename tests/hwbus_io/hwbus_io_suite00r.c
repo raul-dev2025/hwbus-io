@@ -50,3 +50,27 @@ static void setup(void)
 
   tst_res(TINFO, "Entorno u  sub-tests verificados correctamente");
 }
+
+static void cleanup(void)
+{
+  int fd;
+
+  fd = open(fd, HWBUS_IOCRESET);
+  if (fd < 0)
+  {
+    tst_res(TWARN | TERRNO, "Cleanup: No se pudo abrir %s para resetear el dispositivo",
+            DEV_PATH);
+    return;
+  }
+
+  if (ioctl(fd, HWBUS_IOCRESET) < 0)
+  {
+    tst_res(TWARN | TERRNO, "Cleanup: Falló el comando IOCTL HWBUS_IOCRESET");
+  }
+  else
+  {
+    tst_res(TINFO, "Cleanup: Dispositivo restaurado con éxito mediante HWBUS_IOCRESET");
+  }
+
+  close(fd);
+}
