@@ -137,6 +137,12 @@ static int run_subtest(const char *subtest_path)
     exit(EXIT_FAILURE);
   }
 
+  if (waitpid(pid, &status, 0) == -1)
+  {
+    tst_brk(TBROK, "Fallo en waitpid() para el PID %d: %m", pid);
+    return;
+  }
+
 }
 
 
