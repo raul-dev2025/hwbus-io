@@ -67,6 +67,13 @@ static void setup(void)
     return;
   }
 
+  if (ensure_module_loaded() != 0)
+  {
+    tst_brk(TBROK, "Infraestructura no disponible: el nodo %s o el módulo no están listos",
+            DEV_PATH);
+    return;
+  }
+
   // Valida permisos y existencia de los tests
   for (size_t i = 0; i < NUM_SUBTESTS; i++)
   {
