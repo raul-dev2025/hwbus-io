@@ -26,3 +26,27 @@
 #endif
 
 #define DEV_PATH "/dev/hwbusc"
+
+int fd = -1;
+
+static void setup(void)
+{
+  if (chdir(TESTS_DIR) != 0)
+  {
+    tst_brk(TBROK | TERRNO, "No se pudo cambiar al directorio %s", TESTS_DIR);
+    return;
+  }
+
+  // Valida permisos y existencia de los tests
+  for (size_t i = 0; i < NUM_SUBTESTS; i++)
+  {
+    if (access(subtests[i], X_OK) != 0)
+    {
+      tst_brk(TBROK | TERRNO, "No se encontro el test %s de tests o fueron inaccesibles",
+              subtests[i]);
+      return;
+    }
+  }
+
+  tst_res(TINFO, "Entorno u  sub-tests verificados correctamente");
+}
