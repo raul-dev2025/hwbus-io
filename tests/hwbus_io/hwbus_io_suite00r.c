@@ -114,7 +114,7 @@ static void cleanup(void)
     tst_res(TINFO, "Cleanup: Dispositivo restaurado con éxito mediante HWBUS_IOCRESET");
   }
 
-  close(fd);
+  close(local_fd);
 }
 
 static int run_subtest(const char *subtest_path);
