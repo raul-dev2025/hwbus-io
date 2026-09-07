@@ -97,8 +97,8 @@ static void cleanup(void)
     return;
   }
 
-  fd = open(fd, HWBUS_IOCRESET);
-  if (fd < 0)
+  local_fd = open(DEV_PATH, O_RDWR);
+  if (local_fd < 0)
   {
     tst_res(TWARN | TERRNO, "Cleanup: No se pudo abrir %s para resetear el dispositivo",
             DEV_PATH);
