@@ -143,6 +143,18 @@ static int run_subtest(const char *subtest_path)
     return;
   }
 
+  if (WIFEXITED(status))
+  {
+    int exit_code = WEXITSTATUS(status);
+
+    if (exit_code == 0)
+      tst_res(TPASS, "Sub-test %s completado con exito",
+              subtest_path);
+
+    else
+      tst_res(TFAIL, "Sub-test %s retorno codigo de fallo: %d",
+              subtest_path, exit_code);
+  }
 }
 
 
