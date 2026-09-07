@@ -89,7 +89,7 @@ static void setup(void)
 
 static void cleanup(void)
 {
-  int fd;
+  int local_fd;
 
   if (ensure_module_loaded() != 0)
   {
