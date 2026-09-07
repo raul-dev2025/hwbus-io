@@ -27,6 +27,14 @@
 
 #define DEV_PATH "/dev/hwbusc"
 
+static const char *subtests[] = {
+    "./hwbus_io01",
+    "./hwbus_io02",
+    "./hwbus_io03",
+    "./hwbus_io04r",
+    "./hwbus_io05"};
+#define NUM_SUBTESTS sizeof(subtests) / sizeof(subtests[0])
+
 int fd = -1;
 
 static void setup(void)
