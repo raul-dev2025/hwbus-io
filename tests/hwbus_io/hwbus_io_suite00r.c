@@ -125,6 +125,18 @@ static int run_subtest(const char *subtest_path)
 
   tst_res(TINFO, "Ejecutando sub-test: %s", subtest_path);
 
+  pid = SAFE_FORK();
+
+  if (pid == 0)
+  {
+    char *const argv[] = {(char *const)subtest_path, NULL};
+
+    execv(subtest_path, argv);
+
+    tst_res(TWARN, "Error al ejecutar execv() para %s: %m", subtest_path);
+    exit(EXIT_FAILURE);
+  }
+
 }
 
 
