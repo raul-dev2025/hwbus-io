@@ -117,7 +117,6 @@ static void cleanup(void)
   close(local_fd);
 }
 
-static void run_all_tests(void);
 static int run_subtest(const char *subtest_path)
 {
   pid_t pid;
@@ -167,6 +166,11 @@ static int run_subtest(const char *subtest_path)
             subtest_path);
 }
 
+static void run_all_tests(void)
+{
+  for (size_t i = 0; i < NUM_SUBTESTS; i++)
+    run_subtest(subtests[i]);
+}
 
 static struct tst_test test = {
     .setup = setup,
