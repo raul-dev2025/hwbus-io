@@ -63,11 +63,6 @@ static int ensure_module_loaded(void)
 
 static void setup(void)
 {
-  char cwd[1024];
-
-  if (getcwd(cwd, sizeof(cwd)))
-    tst_res(TINFO, "Directorio actual (WD): %s", cwd);
-
   if (chdir(TESTS_DIR) != 0)
   {
     tst_brk(TBROK | TERRNO, "No se pudo cambiar al directorio %s", TESTS_DIR);
