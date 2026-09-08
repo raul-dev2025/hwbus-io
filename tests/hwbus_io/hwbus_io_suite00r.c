@@ -23,6 +23,9 @@
 
 #ifndef MODULE_DIR
 #define MODULE_DIR "/mnt/build-output/Repos/hwbus-io.git/src/core"
+#endif
+
+#ifndef TESTS_DIR
 #define TESTS_DIR "/mnt/build-output/Repos/hwbus-io.git/tests"
 #endif
 
