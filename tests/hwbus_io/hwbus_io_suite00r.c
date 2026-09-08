@@ -87,7 +87,7 @@ static void setup(void)
     }
   }
 
-  tst_res(TINFO, "Entorno u  sub-tests verificados correctamente");
+  tst_res(TINFO, "Entorno y sub-tests verificados correctamente");
 }
 
 static void cleanup(void)
