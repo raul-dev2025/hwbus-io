@@ -26,7 +26,8 @@
 #endif
 
 #ifndef TESTS_DIR
-#define TESTS_DIR "/mnt/build-output/Repos/hwbus-io.git/tests"
+// #define TESTS_DIR "/mnt/build-output/Repos/hwbus-io.git/tests/hwbus_io"
+#define TESTS_DIR "."
 #endif
 
 #define DEV_PATH "/dev/hwbusc"
