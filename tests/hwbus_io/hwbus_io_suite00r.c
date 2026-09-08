@@ -142,7 +142,7 @@ static int run_subtest(const char *subtest_path)
   if (waitpid(pid, &status, 0) == -1)
   {
     tst_brk(TBROK, "Fallo en waitpid() para el PID %d: %m", pid);
-    return;
+    return -1;
   }
 
   if (WIFEXITED(status))
@@ -167,6 +167,8 @@ static int run_subtest(const char *subtest_path)
   else
     tst_res(TFAIL, "Sub-test %s terminó en un estado indeterminado",
             subtest_path);
+
+  return 0;
 }
 
 static void run_all_tests(void)
