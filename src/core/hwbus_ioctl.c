@@ -57,6 +57,8 @@ long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg
 
   int ret;
 
+  pr_info("hwbus ioctl cmd recibido: 0x%x, esperado RESET: 0x%lx\n", cmd, (unsigned long)HWBUS_IOCRESET);
+
   switch (cmd)
   {
   case HWBUS_IOCRESET:

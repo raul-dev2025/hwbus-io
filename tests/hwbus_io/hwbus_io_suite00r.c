@@ -108,7 +108,7 @@ static void cleanup(void)
     return;
   }
 
-  if (ioctl(local_fd, HWBUS_IOCRESET) < 0)
+  if (ioctl(local_fd, HWBUS_IOCRESET, 0) < 0)
   {
     tst_res(TWARN | TERRNO, "Cleanup: Falló el comando IOCTL HWBUS_IOCRESET");
   }
