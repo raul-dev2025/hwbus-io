@@ -36,7 +36,8 @@ static const char *subtests[] = {
     "./hwbus_io02",
     "./hwbus_io03",
     "./hwbus_io04r",
-    "./hwbus_io05"};
+    "./hwbus_io05",
+    "./hwbus_io06"};
 #define NUM_SUBTESTS sizeof(subtests) / sizeof(subtests[0])
 
 static int ensure_module_loaded(void)
@@ -108,7 +109,7 @@ static void cleanup(void)
     return;
   }
 
-  if (ioctl(local_fd, HWBUS_IOCRESET, 0) < 0)
+  if (ioctl(local_fd, HWBUS_IOCRESET) < 0)
   {
     tst_res(TWARN | TERRNO, "Cleanup: Falló el comando IOCTL HWBUS_IOCRESET");
   }
