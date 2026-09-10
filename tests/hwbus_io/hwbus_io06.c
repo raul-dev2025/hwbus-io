@@ -32,7 +32,21 @@ static void cleanup(void)
     SAFE_CLOSE(fd);
 }
 
-static void run_test(kvoid);
+static void run_test(void)
+{
+  int res;
+
+  TST_EXP_PASS_SILENT(ioctl(fd, HWBUS_IOCRESET));
+
+  if (!TST_PASS)
+  {
+    tst_res(TFAIL | TERRNO, "La llamada ioctl reset devolvio error");
+    return;
+  }
+
+  tst_res(TPASS, "Llamada ioctl reset ejecutada con exito (0x%lx)",
+          (unsigned long)HWBUS_IOCRESET);
+}
 static struct tst_test test = {
     .setup = setup,
     .cleanup = cleanup,
