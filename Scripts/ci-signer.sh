@@ -39,8 +39,12 @@ if [ "${BUILD_TYPE}" = "KO" ]; then
     generate_ko_manifest "${MANIFEST_FILE}" "${MODULE_NAME}" "${MODULE_KO}"
 
 elif [ "${BUILD_TYPE}" = "LTP" ]; then
-    # 1. Localizar el ejecutable en tests/
-    TEST_BIN=$(find "${REPO_DIR}/tests" -type f -executable ! -name "*.sh" ! -name "Makefile*" | head -n 1)
+    # 1. Localizar prioritariamente el orquestador (*suite*); si no existe, tomar el primer binario
+    TEST_BIN=$(find "${REPO_DIR}/tests" -type f -executable ! -name "*.sh" ! -name "Makefile*" -name "*suite*" | head -n 1)
+
+    if [ -z "${TEST_BIN}" ]; then
+        TEST_BIN=$(find "${REPO_DIR}/tests" -type f -executable ! -name "*.sh" ! -name "Makefile*" | head -n 1)
+    fi
 
     if [ -z "${TEST_BIN}" ] || [ ! -x "${TEST_BIN}" ]; then
         echo "❌ Error: No se encontró ningún binario de test ejecutable en ${REPO_DIR}/tests/"

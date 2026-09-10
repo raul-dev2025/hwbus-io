@@ -11,34 +11,72 @@ static bool is_valid_hwbus_cmd(unsigned int cmd)
 {
   u8 offset = _IOC_NR(cmd);
   u8 size = _IOC_SIZE(cmd);
-  /*RO, numero mágico, 64B limite, alineación natural*/
-  return (_IOC_TYPE(cmd) == HWBUS_IOC_MAGIC) &&
-         (_IOC_DIR(cmd) == _IOC_READ) &&
+
+  // Rechazo si no es IOCTL del driver
+  if (_IOC_TYPE(cmd) != HWBUS_IOC_MAGIC)
+    return false;
+
+  // Ruta A: Comandos de control sin transferencia de datos (_IO)
+  if (_IOC_DIR(cmd) == _IOC_NONE && offset == 0)
+    return true;
+
+  // Ruta B: Comandos de lectura de registros PCI (_IOR)
+  return (_IOC_DIR(cmd) == _IOC_READ) &&
          (offset <= 0x3c) &&
          (size == 1 || size == 2 || size == 4) &&
          (offset % size == 0);
 }
 
+static long hwbus_ioc_reset(struct hwbus_dev *dev)
+{
+
+  if (!dev)
+    return -ENODEV;
+
+  dev->is_active = true;
+
+  return 0;
+}
+
+static long hwbus_ioc_get_bdf(struct pci_dev *pdev, unsigned long arg)
+{
+  struct hwbus_bdf_info info;
+
+  if (!pdev)
+    return -ENODEV;
+
+  info.domain = pci_domain_nr(pdev->bus);
+  info.bus = pdev->bus->number;
+  info.devfn = pdev->devfn;
+
+  if (copy_to_user((void __user *)arg, &info, sizeof(info)))
+    return -EFAULT;
+
+  return 0;
+}
+
 long hwbus_unlocked_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 {
-  struct pci_dev *pdev = hwbus_get_pci_dev_from_param();
+  struct hwbus_dev *dev = filp->private_data;
+  if (!dev)
+    return -ENODEV;
+
+  struct pci_dev *pdev = dev->pdev;
+
   int ret;
 
-  if (cmd == HWBUS_IOC_GET_BDF)
+  // pr_info("hwbus ioctl cmd recibido: 0x%x, esperado RESET: 0x%lx\n", cmd, (unsigned long)HWBUS_IOCRESET);
+
+  switch (cmd)
   {
-    struct hwbus_bdf_info info;
+  case HWBUS_IOCRESET:
+    return hwbus_ioc_reset(dev);
 
-    if (!pdev)
-      return -ENODEV;
+  case HWBUS_IOC_GET_BDF:
+    return hwbus_ioc_get_bdf(pdev, arg);
 
-    info.domain = pci_domain_nr(pdev->bus);
-    info.bus = pdev->bus->number;
-    info.devfn = pdev->devfn;
-
-    if (copy_to_user((void __user *)arg, &info, sizeof(info)))
-      return -EFAULT;
-
-    return 0;
+  default:
+    break;
   }
 
   u8 offset = _IOC_NR(cmd);
