@@ -1,45 +1,61 @@
-=====================
-Historial de Cambios
-=====================
+=========
+Changelog
+=========
 
-Todos los cambios notables en este proyecto serán documentados en este archivo.
-
-.. list-table:: Versión 1.1.0 (2026-09-04)
+.. list-table:: Version 1.2.0 (2026-09-10)
    :widths: 20 80
    :header-rows: 1
 
-   * - Categoría
-     - Descripción
+   * - Category
+     - Description
    * - Added
-     - Definición de cabeceras UAPI públicas (user/hwbus_io_uapi.h y hwbus_bdf_info) para desacoplar el espacio de usuario.
+     - Implementation of unit sub-test hwbus_io06 to validate the HWBUS_IOCRESET ioctl command.
    * - Added
-     - Implementación de comandos IOCTL atómicos (HWBUS_IOC_GET_BDF, HWBUS_IOC_READ_VENDOR, HWBUS_IOC_READ_DEVICE).
-   * - Added
-     - Suite completa de pruebas de estrés e integración LTP (hwbus_io01 a hwbus_io05) cubriendo concurrencia de subprocesos, mmap() y lseek().
+     - Integration of the automated LTP orchestrator hwbus_io_suite00r managing process isolation and dynamic module reloading.
    * - Changed
-     - Transición de la interfaz de operaciones de archivo (fops) hacia un modelo puro basado en IOCTL.
-   * - Changed
-     - Estandarización de respuestas POSIX: rechazo explícito de mmap() devolviendo -ENODEV y de comandos IOCTL no válidos devolviendo -ENOTTY.
+     - Validation logic in is_valid_hwbus_cmd() to support _IO type commands without payload.
    * - Fixed
-     - Corrección de condiciones de carrera en accesos concurrentes e integración del flag forks_child para pruebas multinúcleo.
+     - Resolution of ENOTTY errors during device reset in the cleanup phase of automated test execution.
    * - CI/CD
-     - Incorporación de runner para módulos del kernel (ci-kmod-runner.sh), generación dinámica de manifiestos y soporte de ejecución LTP no privilegiada.
+     - Tag v3.0.0-ci-integration marking 100% pass rate across the entire LTP test suite for /dev/hwbusc.
 
-.. list-table:: Versión 1.0.0 (2026-08-20)
+
+.. list-table:: Version 1.1.0 (2026-09-04)
    :widths: 20 80
    :header-rows: 1
 
-   * - Categoría
-     - Descripción
+   * - Category
+     - Description
    * - Added
-     - Módulo de kernel básico (hwbus_io.ko) y nodo de dispositivo de carácter /dev/hwbusc con asignación Major 240.
+     - Definition of public UAPI headers (user/hwbus_io_uapi.h and hwbus_bdf_info) to decouple user space.
    * - Added
-     - Implementación de operaciones fops iniciales (hwbus_open, hwbus_release) y lectura básica de registros PCI.
+     - Implementation of atomic IOCTL commands (HWBUS_IOC_GET_BDF, HWBUS_IOC_READ_VENDOR, HWBUS_IOC_READ_DEVICE).
    * - Added
-     - Exposición de atributos en SysFS (/sys/class/hwbusc/) y gestión del parámetro de módulo hwbus_bdf_param.
-   * - Added
-     - Arnés de pruebas unitarias iniciales e integración de baterías externas (BUS_tests y PROC_tests).
+     - Complete suite of LTP stress and integration tests (hwbus_io01 to hwbus_io05) covering thread concurrency, mmap(), and lseek().
+   * - Changed
+     - Transition of the file operations (fops) interface toward a pure IOCTL-based model.
+   * - Changed
+     - Standardization of POSIX responses: explicit rejection of mmap() returning -ENODEV and invalid IOCTL commands returning -ENOTTY.
+   * - Fixed
+     - Fix for race conditions in concurrent access and integration of the forks_child flag for multi-core testing.
    * - CI/CD
-     - Infraestructura automatizada de orquestación (ci-runner, ci-runLauncher) y control del ciclo de vida de VMs (acme-sandbox, buildlab).
+     - Incorporation of kernel module runner (ci-kmod-runner.sh), dynamic manifest generation, and unprivileged LTP execution support.
+
+.. list-table:: Version 1.0.0 (2026-08-20)
+   :widths: 20 80
+   :header-rows: 1
+
+   * - Category
+     - Description
+   * - Added
+     - Basic kernel module (hwbus_io.ko) and character device node /dev/hwbusc with Major 240 allocation.
+   * - Added
+     - Implementation of initial fops operations (hwbus_open, hwbus_release) and basic PCI register reading.
+   * - Added
+     - Exposure of SysFS attributes (/sys/class/hwbusc/) and management of the hwbus_bdf_param module parameter.
+   * - Added
+     - Initial unit test harness and integration of external test suites (BUS_tests and PROC_tests).
+   * - CI/CD
+     - Automated orchestration infrastructure (ci-runner, ci-runLauncher) and VM lifecycle management (acme-sandbox, buildlab).
    * - Security
-     - Licenciamiento GPL, ordenación e inspección de cabeceras (findBadFormatH.sh) y preparación de firma de módulo para Secure Boot.
+     - GPL licensing, header sorting and inspection (findBadFormatH.sh), and module signing preparation for Secure Boot.
