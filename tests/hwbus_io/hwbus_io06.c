@@ -11,10 +11,8 @@
 #include <stdlib.h>    // Utilidades generales del sistema y gestión de memoria
 #include <string.h>    // Manipulación y formateo de cadenas de texto
 #include <sys/ioctl.h> // Macros y funciones para invocación de comando ioctl
-#include <sys/mman.h>  // Definición de mmap, PROT_READ, MAP_SHARED Y MAP_FAILED
 #include <sys/types.h> // Definiciones de tipos primitivos de sistema como off_t
 #include <unistd.h>    // Invocación de llamadas al sistema posix como close()
-#include <libgen.h>    // Extracción y manipulación de nombres de rutas de archivox
 
 #include "tst_test.h"           // Macroestructuras y API principal del framework de pruebas
 #include <user/hwbus_io_uapi.h> // Cabecera uapi con cmds ioctl específicos del driver
