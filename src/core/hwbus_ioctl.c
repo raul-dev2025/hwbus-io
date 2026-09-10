@@ -11,9 +11,17 @@ static bool is_valid_hwbus_cmd(unsigned int cmd)
 {
   u8 offset = _IOC_NR(cmd);
   u8 size = _IOC_SIZE(cmd);
-  /*RO, numero mágico, 64B limite, alineación natural*/
-  return (_IOC_TYPE(cmd) == HWBUS_IOC_MAGIC) &&
-         (_IOC_DIR(cmd) == _IOC_READ) &&
+
+  // Rechazo si no es IOCTL del driver
+  if (_IOC_TYPE(cmd) != HWBUS_IOC_MAGIC)
+    return false;
+
+  // Ruta A: Comandos de control sin transferencia de datos (_IO)
+  if (_IOC_DIR(cmd) == _IOC_NONE && offset == 0)
+    return true;
+
+  // Ruta B: Comandos de lectura de registros PCI (_IOR)
+  return (_IOC_DIR(cmd) == _IOC_READ) &&
          (offset <= 0x3c) &&
          (size == 1 || size == 2 || size == 4) &&
          (offset % size == 0);
