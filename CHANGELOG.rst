@@ -2,6 +2,24 @@
 Changelog
 =========
 
+.. list-table:: Version 1.2.0 (2026-09-10)
+   :widths: 20 80
+   :header-rows: 1
+
+   * - Category
+     - Description
+   * - Added
+     - Implementation of unit sub-test hwbus_io06 to validate the HWBUS_IOCRESET ioctl command.
+   * - Added
+     - Integration of the automated LTP orchestrator hwbus_io_suite00r managing process isolation and dynamic module reloading.
+   * - Changed
+     - Validation logic in is_valid_hwbus_cmd() to support _IO type commands without payload.
+   * - Fixed
+     - Resolution of ENOTTY errors during device reset in the cleanup phase of automated test execution.
+   * - CI/CD
+     - Tag v3.0.0-ci-integration marking 100% pass rate across the entire LTP test suite for /dev/hwbusc.
+
+
 .. list-table:: Version 1.1.0 (2026-09-04)
    :widths: 20 80
    :header-rows: 1
