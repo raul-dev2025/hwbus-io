@@ -34,8 +34,6 @@ static void cleanup(void)
 
 static void run_test(void)
 {
-  int res;
-
   TST_EXP_PASS_SILENT(ioctl(fd, HWBUS_IOCRESET));
 
   if (!TST_PASS)
