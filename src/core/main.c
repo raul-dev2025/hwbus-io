@@ -18,7 +18,7 @@
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Raul Vilchez");
 MODULE_DESCRIPTION("Simple char device");
-MODULE_VERSION("0.0.1");
+MODULE_VERSION("1.2.0");
 
 // Identificacion del dispositivo de caracteres
 static int hwbus_major = HWBUS_MAJOR;
